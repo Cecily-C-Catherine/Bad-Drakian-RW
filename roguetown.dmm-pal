@@ -2,3 +2,14 @@
 /obj/machinery/light/rogue/candle/blue/l
 /obj/item/natural/bundle/stick{amount=5}
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+/obj/item/roguebin/water/gross
+/obj/machinery/anvil
+/obj/machinery/light/rogue/forge
+/obj/structure/fluff/grindwheel
+/obj/machinery/light/rogue/smelter/hiron
+/turf/open/floor/rogue/cobblerock
+/turf/open/floor/rogue/cobble/mossy
+/turf/open/floor/rogue/grass
+/turf/open/floor/rogue/dirt/road
+/obj/item/rogueweapon/tongs
+/obj/item/rogueweapon/hammer/iron

@@ -4473,6 +4473,10 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison)
+"aTT" = (
+/obj/machinery/light/rogue/smelter/hiron,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town/church)
 "aUa" = (
 /obj/machinery/light/rogue/candle/off,
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -9326,6 +9330,10 @@
 	},
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/town/church)
+"bUr" = (
+/obj/machinery/light/rogue/oven/north,
+/turf/open/floor/rogue/woodturned,
+/area/rogue/indoors/town/physician)
 "bUA" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/bograt/above)
@@ -48262,6 +48270,12 @@
 /obj/effect/landmark/start/prince,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/manor/rockhill)
+"kaj" = (
+/obj/machinery/anvil,
+/obj/item/rogueweapon/tongs,
+/obj/item/rogueweapon/hammer/iron,
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/outdoors/town/church)
 "kao" = (
 /turf/open/floor/rogue/grass/nospawn,
 /area/rogue/outdoors/bograt/above)
@@ -63467,8 +63481,8 @@
 /obj/machinery/light/rogue/candle/red{
 	pixel_y = -32
 	},
-/obj/structure/flora/ausbushes/brflowers,
-/turf/open/floor/rogue/grassred,
+/obj/machinery/light/rogue/forge,
+/turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/town/church)
 "ngN" = (
 /obj/structure/bed/rogue/inn/wool,
@@ -85809,9 +85823,6 @@
 	pixel_y = 15
 	},
 /obj/machinery/light/rogue/candle/blue,
-/obj/machinery/light/rogue/oven/south{
-	dir = 1
-	},
 /turf/open/floor/rogue/rooftop/green{
 	dir = 4
 	},
@@ -94955,8 +94966,8 @@
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town)
 "tRv" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/rogue/grasscold,
+/obj/structure/fluff/grindwheel,
+/turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/town/church)
 "tRz" = (
 /obj/effect/wisp/green,
@@ -109246,6 +109257,10 @@
 /obj/structure/chair/bench/couch,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors)
+"wRg" = (
+/obj/item/roguebin/water/gross,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/town/church)
 "wRk" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 8;
@@ -114444,6 +114459,10 @@
 /obj/structure/fluff/nest,
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/exposed/town/keep)
+"xTg" = (
+/obj/item/roguebin/water/gross,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/indoors/town/cell/warden)
 "xTm" = (
 /obj/structure/mineral_door/wood{
 	name = "East Wing";
@@ -176444,7 +176463,7 @@ naY
 kFN
 exa
 csA
-exa
+xTg
 shj
 whb
 whb
@@ -408807,7 +408826,7 @@ fdq
 kOl
 eTG
 eTG
-eTG
+bUr
 gjg
 rUL
 qup
@@ -537485,10 +537504,10 @@ pTd
 dOw
 dOw
 aqu
-vFj
+dOw
 dOw
 tDl
-tDl
+dOw
 sFn
 dOw
 dOw
@@ -537918,11 +537937,11 @@ vFj
 dOw
 dOw
 dOw
-tDl
-apB
+wRg
+kaj
 ngK
 ukK
-iCR
+aTT
 ijR
 sFn
 pKf
