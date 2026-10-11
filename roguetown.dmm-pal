@@ -5,3 +5,10 @@
 /obj/structure/bondage/gloryhole{opacity=1; color="#97999c"}
 /obj/structure/curtain/brown{icon_state="curtain-closed"; opacity=1; open=0}
 /obj/structure/chair/wood/rogue
+/obj/machinery/light/rogue/candle/blue/l
+/turf/open/floor/rogue/rooftop/green{dir=8}
+/turf/open/floor/rogue/rooftop/green/corner1{dir=1}
+/turf/open/floor/rogue/rooftop/green{dir=1}
+/turf/open/floor/rogue/rooftop/green/corner1{dir=4}
+/turf/open/floor/rogue/rooftop/green{dir=4}
+/turf/open/floor/rogue/ruinedwood

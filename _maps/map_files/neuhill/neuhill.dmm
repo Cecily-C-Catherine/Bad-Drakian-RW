@@ -76514,6 +76514,12 @@
 "pTd" = (
 /turf/closed/mineral/rogue,
 /area/rogue/outdoors/town/church)
+"pTi" = (
+/obj/machinery/light/rogue/candle/blue/r,
+/turf/open/floor/rogue/tile/bath{
+	name = "small tile floor"
+	},
+/area/rogue/indoors/town/physician)
 "pTj" = (
 /obj/structure/flora/roguegrass,
 /obj/structure/flora/ausbushes/brflowers,
@@ -82770,9 +82776,6 @@
 /obj/item/storage/belt/rogue/surgery_bag/full{
 	pixel_y = 5
 	},
-/obj/machinery/light/rogue/candle/blue/l{
-	dir = 8
-	},
 /turf/open/floor/rogue/greenstone,
 /area/rogue/indoors/town/physician)
 "rlE" = (
@@ -84425,7 +84428,9 @@
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/under/cave)
 "rDt" = (
-/obj/structure/bondage/gloryhole,
+/obj/structure/bondage/gloryhole{
+	dir = 4
+	},
 /obj/structure/curtain/brown{
 	icon_state = "curtain-closed";
 	opacity = 1;
@@ -188961,7 +188966,7 @@ bhP
 eSn
 fdq
 maT
-dxl
+pTi
 wRO
 nDa
 whb
@@ -404140,9 +404145,9 @@ wOD
 ryI
 xlA
 xlA
-xlA
-xlA
-xlA
+tOy
+pLf
+cDU
 xlA
 xlA
 xlA
@@ -404572,9 +404577,9 @@ kFX
 xlA
 xlA
 xlA
-xlA
-xlA
-xlA
+qjU
+cSF
+fIY
 xlA
 xlA
 xlA
@@ -405004,9 +405009,9 @@ kFX
 xlA
 xlA
 xlA
-tOy
-pLf
-cDU
+qjU
+cSF
+fIY
 xlA
 xlA
 xlA
