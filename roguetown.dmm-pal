@@ -1,23 +1,7 @@
 [Palette]
-/obj/machinery/light/rogue/candle/blue/l
-/obj/item/natural/bundle/stick{amount=5}
-/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
-/obj/item/roguebin/water/gross
-/obj/machinery/anvil
-/obj/machinery/light/rogue/forge
-/obj/structure/fluff/grindwheel
-/obj/machinery/light/rogue/smelter/hiron
-/turf/open/floor/rogue/cobblerock
-/turf/open/floor/rogue/cobble/mossy
-/turf/open/floor/rogue/grass
-/turf/open/floor/rogue/dirt/road
-/obj/item/rogueweapon/tongs
-/obj/item/rogueweapon/hammer/iron
-/obj/structure/flora/roguegrass/herb/rosa
-/obj/structure/flora/roguegrass/bush/wall/tall
-/obj/machinery/artificer_table
-/obj/item/rogueweapon/hammer/wood
-/obj/structure/table/wood/poor
-/turf/open/floor/rogue/grassred
-/obj/structure/flora/ausbushes/ppflowers
-/obj/structure/flora/roguegrass
+/turf/open/floor/rogue/dirt
+/turf/closed/mineral/random/rogue
+/obj/structure/mineral_door/wood/deadbolt
+/obj/structure/bondage/gloryhole{opacity=1; color="#97999c"}
+/obj/structure/curtain/brown{icon_state="curtain-closed"; opacity=1; open=0}
+/obj/structure/chair/wood/rogue

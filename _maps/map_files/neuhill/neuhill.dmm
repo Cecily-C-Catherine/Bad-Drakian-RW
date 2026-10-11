@@ -18249,6 +18249,18 @@
 /obj/structure/fluff/wallclock,
 /turf/open/floor/rogue/concrete,
 /area/rogue/outdoors/town/roofs/church)
+"dJW" = (
+/obj/structure/bondage/gloryhole{
+	opacity = 1;
+	color = "#97999c"
+	},
+/obj/structure/curtain/brown{
+	icon_state = "curtain-closed";
+	opacity = 1;
+	open = 0
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/under/cavewet)
 "dJY" = (
 /obj/structure/stairs{
 	dir = 8
@@ -24801,6 +24813,10 @@
 	},
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/town)
+"fcD" = (
+/obj/structure/mineral_door/wood/deadbolt,
+/turf/open/floor/rogue/grass,
+/area/rogue/indoors)
 "fcE" = (
 /obj/structure/flora/rogueshroom/unhappy/random,
 /turf/open/floor/rogue/grasspurple,
@@ -49742,6 +49758,10 @@
 /obj/item/reagent_containers/glass/cup/wooden,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/cave)
+"kpT" = (
+/obj/structure/chair/wood/rogue,
+/turf/open/floor/rogue/dirt,
+/area/rogue/under/cavewet)
 "kqa" = (
 /obj/structure/ladder,
 /turf/open/floor/rogue/metal/barograte,
@@ -84404,6 +84424,15 @@
 	},
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/under/cave)
+"rDt" = (
+/obj/structure/bondage/gloryhole,
+/obj/structure/curtain/brown{
+	icon_state = "curtain-closed";
+	opacity = 1;
+	open = 0
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors)
 "rDC" = (
 /obj/structure/mineral_door/wood{
 	name = "Academy Entrance";
@@ -86151,6 +86180,12 @@
 	dir = 8
 	},
 /area/rogue/outdoors/woodsafe)
+"rYi" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 4
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/under/cavewet)
 "rYk" = (
 /obj/structure/handcart,
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -184216,15 +184251,15 @@ gBA
 gBA
 gBA
 whb
-whb
-whb
-whb
-whb
-whb
-whb
-whb
-rqt
-rqt
+uhz
+iMF
+iMF
+iMF
+iMF
+iMF
+mIa
+iMF
+iMF
 aLJ
 swJ
 swJ
@@ -192736,10 +192771,10 @@ whb
 whb
 whb
 whb
-whb
-whb
-whb
-whb
+kpT
+dJW
+rqt
+rqt
 pNK
 rqt
 rqt
@@ -193168,7 +193203,7 @@ whb
 whb
 whb
 whb
-whb
+rYi
 whb
 whb
 gRs
@@ -293944,12 +293979,12 @@ nqU
 ryI
 fxx
 sjP
-spp
-awN
-lgA
+thr
+wOD
+thr
 uaL
-iNT
-uaL
+qvR
+kTN
 spp
 wSn
 xvN
@@ -294376,9 +294411,9 @@ uaL
 uaL
 dcD
 qvR
-aPR
-qvR
-qvR
+fcD
+lkZ
+pOX
 qvR
 qvR
 nrs
@@ -294809,7 +294844,7 @@ uaL
 sjP
 nrs
 thr
-wOD
+rDt
 thr
 spp
 qvR
