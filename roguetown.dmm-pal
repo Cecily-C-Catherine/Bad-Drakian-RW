@@ -14,3 +14,10 @@
 /obj/item/rogueweapon/tongs
 /obj/item/rogueweapon/hammer/iron
 /obj/structure/flora/roguegrass/herb/rosa
+/obj/structure/flora/roguegrass/bush/wall/tall
+/obj/machinery/artificer_table
+/obj/item/rogueweapon/hammer/wood
+/obj/structure/table/wood/poor
+/turf/open/floor/rogue/grassred
+/obj/structure/flora/ausbushes/ppflowers
+/obj/structure/flora/roguegrass

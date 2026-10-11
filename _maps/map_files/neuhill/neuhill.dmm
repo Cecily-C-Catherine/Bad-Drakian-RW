@@ -4473,10 +4473,6 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison)
-"aTT" = (
-/obj/machinery/light/rogue/smelter/hiron,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town/church)
 "aUa" = (
 /obj/machinery/light/rogue/candle/off,
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -10236,7 +10232,7 @@
 /turf/open/floor/rogue/greenstone/runed,
 /area/rogue/outdoors/bograt/above)
 "cey" = (
-/obj/structure/flora/roguegrass/bush/wall/tall,
+/obj/item/roguebin/water/gross,
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/town/church)
 "cez" = (
@@ -17751,6 +17747,10 @@
 "dGr" = (
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/town/church/chapel)
+"dGu" = (
+/obj/machinery/light/rogue/forge,
+/turf/open/floor/rogue/grassred,
+/area/rogue/indoors/town/church)
 "dGw" = (
 /obj/item/reagent_containers/powder/spice{
 	pixel_y = 14
@@ -39911,8 +39911,9 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/town/church)
 "ijT" = (
-/obj/structure/flora/roguegrass/herb/rosa,
-/obj/structure/flora/ausbushes/ppflowers,
+/obj/machinery/anvil,
+/obj/item/rogueweapon/tongs,
+/obj/item/rogueweapon/hammer/iron,
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/town/church)
 "ijW" = (
@@ -63475,7 +63476,8 @@
 /obj/machinery/light/rogue/candle/red{
 	pixel_y = -32
 	},
-/turf/open/floor/rogue/cobble/mossy,
+/obj/structure/flora/roguegrass/bush/wall/tall,
+/turf/open/floor/rogue/grass,
 /area/rogue/outdoors/town/church)
 "ngN" = (
 /obj/structure/bed/rogue/inn/wool,
@@ -67687,12 +67689,6 @@
 /obj/structure/table/finestone,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town)
-"obv" = (
-/obj/machinery/anvil,
-/obj/item/rogueweapon/tongs,
-/obj/item/rogueweapon/hammer/iron,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town/church)
 "obw" = (
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/town/manor/rockhill)
@@ -67786,6 +67782,11 @@
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/academy)
+"ocX" = (
+/obj/machinery/artificer_table,
+/obj/item/rogueweapon/hammer/wood,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/indoors/town/church)
 "ocY" = (
 /obj/structure/fluff/railing/wood{
 	dir = 8;
@@ -73846,7 +73847,7 @@
 	},
 /area/rogue/outdoors/town/roofs)
 "pqQ" = (
-/obj/structure/flora/roguegrass,
+/obj/structure/fluff/grindwheel,
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/indoors/town/church)
 "pqS" = (
@@ -78555,8 +78556,8 @@
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/bograt/sunken)
 "qqV" = (
-/obj/structure/flora/roguegrass/bush/wall/tall,
-/turf/open/floor/rogue/grassyel,
+/obj/machinery/light/rogue/smelter/hiron,
+/turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/town/church)
 "qrb" = (
 /obj/structure/fluff/railing/wood,
@@ -82032,10 +82033,6 @@
 	},
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/rtfield/rockhill)
-"rdz" = (
-/obj/item/roguebin/water/gross,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town/church)
 "rdE" = (
 /turf/closed/wall/mineral/rogue/stonebrick,
 /area/rogue/outdoors/beach/harbor)
@@ -89784,10 +89781,6 @@
 /obj/structure/fluff/railing/border,
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/rtfield/rockhill/above)
-"sNQ" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/indoors/town/church)
 "sNU" = (
 /obj/machinery/light/rogue/candle/blue/l,
 /turf/open/water/bath,
@@ -94968,10 +94961,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town)
-"tRv" = (
-/obj/structure/fluff/grindwheel,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town/church)
 "tRz" = (
 /obj/effect/wisp/green,
 /turf/open/floor/rogue/dirt/road,
@@ -105755,7 +105744,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/academy)
 "wge" = (
-/obj/machinery/light/rogue/forge,
+/obj/structure/flora/roguegrass,
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/town/church)
 "wgg" = (
@@ -537506,7 +537495,7 @@ dOw
 aqu
 dOw
 dOw
-tDl
+aOS
 dOw
 sFn
 dOw
@@ -537941,7 +537930,7 @@ tDl
 dOw
 ngK
 ukK
-tRv
+oJa
 ijR
 sFn
 pKf
@@ -538373,7 +538362,7 @@ ukK
 uEH
 eId
 ukK
-aTT
+jTg
 ijR
 ijR
 dOw
@@ -538807,8 +538796,8 @@ rWH
 uEH
 jev
 wge
-obv
-rdz
+ijR
+ijR
 dOw
 rZG
 izh
@@ -539669,7 +539658,7 @@ rWH
 rWH
 rWH
 qPA
-cey
+dGu
 ijT
 cey
 qhl
@@ -540965,7 +540954,7 @@ rWH
 rWH
 rWH
 iFY
-eTw
+ocX
 fZb
 pqQ
 lyL
@@ -541398,7 +541387,7 @@ rWH
 rWH
 ihO
 qqV
-sNQ
+eTw
 ihO
 gea
 dSz
