@@ -48270,12 +48270,6 @@
 /obj/effect/landmark/start/prince,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/manor/rockhill)
-"kaj" = (
-/obj/machinery/anvil,
-/obj/item/rogueweapon/tongs,
-/obj/item/rogueweapon/hammer/iron,
-/turf/open/floor/rogue/cobble/mossy,
-/area/rogue/outdoors/town/church)
 "kao" = (
 /turf/open/floor/rogue/grass/nospawn,
 /area/rogue/outdoors/bograt/above)
@@ -63481,7 +63475,6 @@
 /obj/machinery/light/rogue/candle/red{
 	pixel_y = -32
 	},
-/obj/machinery/light/rogue/forge,
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/town/church)
 "ngN" = (
@@ -67694,6 +67687,12 @@
 /obj/structure/table/finestone,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town)
+"obv" = (
+/obj/machinery/anvil,
+/obj/item/rogueweapon/tongs,
+/obj/item/rogueweapon/hammer/iron,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town/church)
 "obw" = (
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/town/manor/rockhill)
@@ -82033,6 +82032,10 @@
 	},
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/rtfield/rockhill)
+"rdz" = (
+/obj/item/roguebin/water/gross,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town/church)
 "rdE" = (
 /turf/closed/wall/mineral/rogue/stonebrick,
 /area/rogue/outdoors/beach/harbor)
@@ -105752,6 +105755,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/academy)
 "wge" = (
+/obj/machinery/light/rogue/forge,
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/town/church)
 "wgg" = (
@@ -109257,10 +109261,6 @@
 /obj/structure/chair/bench/couch,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors)
-"wRg" = (
-/obj/item/roguebin/water/gross,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/town/church)
 "wRk" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 8;
@@ -537937,11 +537937,11 @@ vFj
 dOw
 dOw
 dOw
-wRg
-kaj
+tDl
+dOw
 ngK
 ukK
-aTT
+tRv
 ijR
 sFn
 pKf
@@ -538373,7 +538373,7 @@ ukK
 uEH
 eId
 ukK
-tRv
+aTT
 ijR
 ijR
 dOw
@@ -538807,8 +538807,8 @@ rWH
 uEH
 jev
 wge
-ijR
-ijR
+obv
+rdz
 dOw
 rZG
 izh
