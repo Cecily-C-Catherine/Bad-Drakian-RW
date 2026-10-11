@@ -1,0 +1,4 @@
+[Palette]
+/obj/machinery/light/rogue/candle/blue/l
+/obj/item/natural/bundle/stick{amount=5}
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
