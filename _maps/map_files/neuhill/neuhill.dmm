@@ -8622,10 +8622,6 @@
 /area/rogue/outdoors/woodsrat/safe)
 "bNu" = (
 /obj/structure/rack/rogue,
-/obj/item/rogueweapon/stoneaxe{
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /obj/item/rogueweapon/woodstaff{
 	pixel_y = -12
 	},
@@ -8638,18 +8634,9 @@
 /obj/item/rogueweapon/woodstaff{
 	pixel_y = -12
 	},
-/obj/item/rogueweapon/stoneaxe{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/rogueweapon/stoneaxe{
-	pixel_x = 6;
-	pixel_y = -2
-	},
-/obj/item/rogueweapon/stoneaxe{
-	pixel_x = 6;
-	pixel_y = -2
-	},
+/obj/item/rogueweapon/stoneaxe/handaxe,
+/obj/item/rogueweapon/stoneaxe/battle,
+/obj/item/rogueweapon/stoneaxe/woodcut,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/church)
 "bNC" = (
@@ -12017,6 +12004,7 @@
 /obj/machinery/light/rogue/candle{
 	pixel_y = -32
 	},
+/obj/structure/table/optable,
 /turf/open/floor/rogue/greenstone/glyph4,
 /area/rogue/indoors/town/physician)
 "cyj" = (
@@ -22595,6 +22583,7 @@
 /area/rogue/outdoors/mountains/decap/rockhill)
 "eFv" = (
 /obj/structure/table/wood/long_table,
+/obj/machinery/light/rogue/candle/floorcandle/pink,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/town/church)
 "eFC" = (
@@ -23019,6 +23008,7 @@
 	dir = 1;
 	pixel_y = 6
 	},
+/obj/effect/lily_petal/two,
 /turf/open/floor/rogue/ruinedwood/chevron,
 /area/rogue/indoors/town/church)
 "eJU" = (
@@ -28098,6 +28088,9 @@
 "fMY" = (
 /obj/structure/closet/dirthole/grave,
 /obj/item/rogueweapon/shovel,
+/obj/item/natural/bundle/stick{
+	amount = 5
+	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/town/graveyard)
 "fNe" = (
@@ -37925,9 +37918,14 @@
 /turf/closed/wall/mineral/rogue/pipe/joint/one,
 /area/rogue/indoors/town/dwarfin/rockhill)
 "hQk" = (
-/obj/structure/roguewindow,
 /obj/structure/curtain/directional/red{
 	dir = 1
+	},
+/obj/structure/bondage/gloryhole{
+	name = "consultation hole";
+	desc = "A wooden partition with a non-suspicious hole. For exchanging confessions and counsel";
+	opacity = 1;
+	color = "#97999c"
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/church/chapel)
@@ -40517,6 +40515,8 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow,
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow,
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/cell/warden)
 "irG" = (
@@ -44838,10 +44838,10 @@
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/bograt/north)
 "jnl" = (
-/obj/structure/composter,
 /obj/structure/fluff/walldeco/med6{
 	pixel_x = 32
 	},
+/obj/structure/composter/halffull,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/physician)
 "jnp" = (
@@ -48917,12 +48917,10 @@
 /turf/open/floor/rogue/tile/bath,
 /area/rogue/under/town/basement/keep)
 "khd" = (
-/obj/structure/fermentation_keg/water{
-	pixel_x = -3
-	},
 /obj/structure/fluff/railing/border{
 	dir = 4
 	},
+/obj/machinery/tanningrack,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/physician)
 "khf" = (
@@ -56160,6 +56158,10 @@
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield/rockhill)
+"lJO" = (
+/obj/structure/fluff/pillow/black,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/town/church)
 "lJP" = (
 /obj/structure/flora/newleaf,
 /obj/structure/flora/newleaf,
@@ -60194,6 +60196,7 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog)
 "mvL" = (
+/obj/structure/table/optable,
 /turf/open/floor/rogue/greenstone/glyph6,
 /area/rogue/indoors/town/physician)
 "mvO" = (
@@ -63287,6 +63290,12 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town)
+"neE" = (
+/obj/structure/fluff/statue/tdummy,
+/turf/open/floor/rogue/concrete{
+	color = "#91c9ff"
+	},
+/area/rogue/outdoors/town/church)
 "neF" = (
 /obj/structure/hotspring,
 /obj/structure/hotspring,
@@ -82727,6 +82736,9 @@
 /obj/item/storage/belt/rogue/surgery_bag/full{
 	pixel_y = 5
 	},
+/obj/machinery/light/rogue/candle/blue/l{
+	dir = 8
+	},
 /turf/open/floor/rogue/greenstone,
 /area/rogue/indoors/town/physician)
 "rlE" = (
@@ -85797,6 +85809,9 @@
 	pixel_y = 15
 	},
 /obj/machinery/light/rogue/candle/blue,
+/obj/machinery/light/rogue/oven/south{
+	dir = 1
+	},
 /turf/open/floor/rogue/rooftop/green{
 	dir = 4
 	},
@@ -88013,6 +88028,7 @@
 	pixel_y = -13;
 	pixel_z = 0
 	},
+/obj/structure/fermentation_keg/water,
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/physician)
 "suC" = (
@@ -95888,6 +95904,7 @@
 /obj/structure/stairs{
 	dir = 1
 	},
+/obj/effect/lily_petal/two,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/town/church)
 "ucp" = (
@@ -107562,6 +107579,10 @@
 	dir = 1
 	},
 /area/rogue/outdoors/town/roofs/church)
+"wzR" = (
+/obj/structure/fluff/statue/tdummy,
+/turf/open/floor/rogue/concrete/bronze,
+/area/rogue/outdoors/town/church)
 "wzU" = (
 /obj/structure/flora/roguetree,
 /turf/open/floor/rogue/grassyel,
@@ -114407,6 +114428,7 @@
 /area/rogue/outdoors/mountains/decap/rockhill)
 "xSI" = (
 /obj/structure/table/wood/long_table/mid/alt,
+/obj/machinery/light/rogue/candle/floorcandle/pink,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/town/church)
 "xSW" = (
@@ -428596,7 +428618,7 @@ qPA
 hZK
 hZK
 nvu
-mPy
+wzR
 dtc
 mPy
 mPy
@@ -432052,7 +432074,7 @@ xpi
 teW
 pTd
 lnN
-iEv
+neE
 rDh
 iEv
 iEv
@@ -546528,7 +546550,7 @@ wJF
 mnY
 eJR
 ucj
-xsd
+lJO
 jHT
 lbW
 nUO
