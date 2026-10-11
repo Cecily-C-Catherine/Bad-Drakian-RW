@@ -12,3 +12,8 @@
 /turf/open/floor/rogue/rooftop/green/corner1{dir=4}
 /turf/open/floor/rogue/rooftop/green{dir=4}
 /turf/open/floor/rogue/ruinedwood
+/turf/open/floor/rogue/dirt/road
+/area/rogue/under/cave
+/turf/closed/mineral/rogue
+/area/rogue/outdoors/rtfield/rockhill
+/area/rogue/indoors

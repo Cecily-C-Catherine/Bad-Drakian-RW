@@ -68178,6 +68178,18 @@
 "ogT" = (
 /turf/closed/mineral/random/rogue,
 /area/rogue/outdoors/mountains/decap/rockhill)
+"ogU" = (
+/obj/structure/bondage/gloryhole{
+	opacity = 1;
+	color = "#97999c"
+	},
+/obj/structure/curtain/brown{
+	icon_state = "curtain-closed";
+	opacity = 1;
+	open = 0
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors)
 "ogY" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/rogue/naturalstone,
@@ -290033,12 +290045,12 @@ xou
 xou
 pOX
 qvR
-vRu
-vRu
-vRu
-sSS
-vRu
-vRu
+uaL
+wjE
+hHF
+ogU
+hHF
+hzr
 pGA
 xvN
 fxx
@@ -290470,7 +290482,7 @@ vRu
 vRu
 sSS
 vRu
-xvN
+vRu
 iNT
 qvR
 fxx
