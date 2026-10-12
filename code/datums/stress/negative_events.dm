@@ -298,12 +298,12 @@
 
 /datum/stressevent/sleepytimet2
 	timer = 40 MINUTES
-	stressadd = 3
+	stressadd = 2
 	desc = span_red("I'm REALLY tired.")
 
 /datum/stressevent/sleepytimet3
 	timer = 40 MINUTES
-	stressadd = 4
+	stressadd = 2
 	desc = span_boldred("I'm RIDICULOUSLY tired.")
 	
 /datum/stressevent/tortured
