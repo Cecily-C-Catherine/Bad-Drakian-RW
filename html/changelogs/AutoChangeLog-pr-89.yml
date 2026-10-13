@@ -1,0 +1,9 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - rscadd: "Added cause-specific collapse balloons for blood loss, suffocation, poison, burns, and brute damage, repeating every 8 seconds until recovery or death."
+  - rscadd: "Added colored dying gasp indicators and choking sounds during severe blood loss."
+  - qol: "The controlling player can see their own collapse balloons even while unconscious or blind."
+  - qol: "All nearby players can see dying gasps without medicine skill or Combat Aware."
+  - qol: "Concurrent floating alerts stack vertically instead of overlapping."
+  - bugfix: "Death Awareness safely handles characters without a mind."
