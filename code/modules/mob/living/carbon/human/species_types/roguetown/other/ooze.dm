@@ -283,3 +283,31 @@
 	stored.adjust_fire_stacks(2)
 	qdel(shape)
 	shape = null
+
+//B.D. edit, Ooze beautification. AKA: Why cant slimes be slimey
+/obj/effect/proc_holder/spell/self/oozing
+	name = "Ooze Reshape"
+	desc = "Allows you to transform yourself without a mirror."
+	overlay_state = "trap2"
+	releasedrain = 10
+	chargetime = 1
+	recharge_time = 0 SECONDS // It will take them much longer to actually decide what to pick
+	warnie = "spellwarning"
+	movement_interrupt = FALSE
+	no_early_release = FALSE
+	chargedloop = null
+	sound = 'sound/misc/nutriment.ogg'
+	chargedloop = /datum/looping_sound/invokegen
+	cost = 0
+	miracle = FALSE
+
+/obj/effect/proc_holder/spell/self/oozing/cast(list/targets, mob/user = usr)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	to_chat(H, span_info("You start considering what to change about yourself..."))
+	if(do_after(H, 2 SECONDS))
+		perform_mirror_transform(H)
+	return
+//End BD edit
