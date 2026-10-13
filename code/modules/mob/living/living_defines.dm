@@ -254,3 +254,10 @@
 	var/list/incoming_fellowship_invites = list() // list of /datum/weakref to /datum/fellowship; kept in sync with fellowship.pending_invites
 	/// List of enemies for the mob's AI
 	var/list/enemies = list()
+
+	/// Next allowed blood-loss gasp notification.
+	var/last_gasp = 0
+
+	/// Current cause-specific collapse balloon and its repeating timer.
+	var/critical_alert_cause
+	var/critical_alert_timer
