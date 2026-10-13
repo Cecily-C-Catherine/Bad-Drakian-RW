@@ -146,6 +146,7 @@
 	//OV edit
 	if(isooze(H))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/ooze)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/oozing)
 	//OV edit end
 
 /*
