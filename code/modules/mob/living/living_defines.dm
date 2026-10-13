@@ -257,3 +257,7 @@
 
 	/// Next allowed blood-loss gasp notification.
 	var/last_gasp = 0
+
+	/// Current cause-specific collapse balloon and its repeating timer.
+	var/critical_alert_cause
+	var/critical_alert_timer
