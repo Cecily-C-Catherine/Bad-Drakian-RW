@@ -178,7 +178,8 @@
 
 /datum/status_effect/debuff/sleepytime/t3/on_apply()
 	. = ..()
-	owner.add_movespeed_modifier("SLEEP_TIER3", update=TRUE, priority=100, multiplicative_slowdown=1.25)
+	// Bad Drakian adjustment: no stamina recovery penalty and not movement speed loss
+	// owner.add_movespeed_modifier("SLEEP_TIER3", update=TRUE, priority=100, multiplicative_slowdown=1.25)
 
 /datum/status_effect/debuff/sleepytime/t3/on_remove()
 	owner.remove_movespeed_modifier("SLEEP_TIER3")
