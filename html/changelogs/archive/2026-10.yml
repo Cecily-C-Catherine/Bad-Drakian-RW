@@ -1,0 +1,223 @@
+2026-10-01:
+  RadiantFlash7:
+  - bugfix: Arcyne silver daggers now properly no longer smelt.
+  - bugfix: miscellaneous runtime fixes for json strings and meat
+  - rscdel: Hunters no longer start with a crossbow
+  - bugfix: images are no longer qdeled on the hunting trackers
+  sippykot:
+  - bugfix: adds the new drow gear to the vendor, it was not added properly
+2026-10-02:
+  Kroto-Ker:
+  - rscadd: Pecs breast option.
+  UntoldTactics:
+  - rscadd: Avantyne luxplate armor pieces have had their flavor text reworked into
+      a poem.
+  Yuckuza:
+  - balance: Amazon adventurers now get the bed breaker trait by default
+  chemistrymain3:
+  - bugfix: Fixed a missing crafting recipe for skysugar.
+2026-10-03:
+  EvenInDeathIStillServe:
+  - rscadd: Opening a package containing explosives will detonate its payload on the
+      spot.
+  - rscadd: Using a knife to open a package has a mere 20% chance to detonate any
+      explosive within.
+  IronDragoon:
+  - bugfix: fixed the 'secrets of the throat' command to not be incorrect in the info
+      it gives
+  KurobaKetsukane:
+  - rscadd: Grenzelhoft, Gronn, Otava and Naledi ships have a rare chance to carry
+      a Ring of Vitality, Courage, Wisdom or Swiftness.
+  - rscadd: Kazengun ships sell wooden and ebony puzzle-boxes, with a rare chance
+      of a royal puzzle-box.
+  - qol: Rare ship cargo is marked "(rare)" in the Harbor tab's realm list.
+  - balance: Royal puzzle-boxes can be retried after a failed attempt, but crumble
+      to dust once solved.
+  - code_imp: Supply packs have a ship_chance var for cargo that only shows up on
+      some ships.
+  MarioTheShiba:
+  - rscadd: The Soldier of Future
+  Yuckuza:
+  - balance: Magician's Brick spell power scaling is now curved; int deviation both
+      above and below 10 buffs the bricks' force. (i.e. 1 int & 19 int both = +9 brick)
+  chemistrymain3:
+  - rscadd: Mage summons now inform you who the summoner is and what mob is being
+      bound.
+  - rscadd: Pestran divine bolt now removes medicine in you.
+  - rscadd: Teacups and other cookware can be sold again.
+  ophaq:
+  - qol: Implemented a clear search 'X' button to the crafting menu's search bar.
+  wikimody:
+  - balance: stamina poison and its strong version no longer metabolise near instantly,
+      and shoudl be much more effective when used
+  zeroisthebiggay:
+  - bugfix: Fixed the unholy grasp miracle not cleansing its debuff when you remove
+      the net.
+  - balance: Reworked the unholy grasp miracle. It now just summons a net made of
+      gore in your hands that will splatter into blood if you miss it, and can't be
+      reused, rather than shooting a projectile.
+  - balance: The unholy grasp miracle loses its knockdown capabilities.
+  - sound: Added throw and attach sound effects to nets.
+2026-10-04:
+  AlucardHellsingChapel:
+  - balance: Pulling a net out of your bag takes 4 second.
+  Arturlang:
+  - bugfix: joining as jester will no longer break joining as a advclass
+  SirSwagmeyer:
+  - balance: Graggarite miracles now use EYES instead of a HEART to revive their targets.
+  Xander3359:
+  - bugfix: The throat no longer tells you how to set laws twice, or lie to you about
+      being able to ascend when that's not a thing.
+  chemistrymain3:
+  - rscadd: Fixes no-thirst traits still letting you be thirsty.
+  coffeecoffeecoffee:
+  - balance: returns a little Cleave to greatswords in the form of making Cleave intent
+      good
+  john-pawson:
+  - rscadd: Added two new states of sleep depravation, Fatigued and Exhausted, they
+      slow you down and lower your stamina regeneration if you stay awake for more
+      than one day
+  - rscadd: Acorn coffee and baths need more quantity and time to remove the more
+      advanced states of sleep depravation
+  - rscadd: Regular coffee and tea are now able to remove sleep depravation
+  - balance: Being very sleep deprived makes it easier to fall asleep, at Fatigued
+      meaning less time lying down on a bed, and at Exhausted meaning you can sleep
+      with your armor on
+  - balance: Now that there's three sleep depravation states, you can spend 3 days
+      without sleep and not miss out on skill points and inspirations
+  - bugfix: People on lux or unremovable armor can now sleep while wearing it, as
+      long as they remove any removable armor first.
+  - qol: Sleeping on beds now takes 3 seconds less
+  mushy:
+  - bugfix: TRAIT_MAGEARMOR will now properly regenerate.
+2026-10-05:
+  0-the-fool:
+  - rscadd: Once-per-day attempt limit to the royal puzzle-box
+2026-10-06:
+  SSix:
+  - bugfix: A fogbeast summoned with Choose Mount uses the coat color you picked
+  - bugfix: A fogbeast keeps that coat color when facing south
+  - bugfix: A dead fogbeast shows its corpse sprite
+  SirSwagmeyer:
+  - rscdel: Removed a variety of nonheretical spellscrolls and stat potions from the
+      "heretical" lootpool.
+  TheMysteriousDragon:
+  - rscdel: Removed brigandine, steel bracers, iron gorget & blacksteel staff and
+      replaced with leather comparables as well as unique staff
+  - balance: removed poor spell choices [eg; fetch. Why would a backliner artillery
+      focused mage want to pull people into them?] as well as minor skill increases
+      [polearms > jman | magic > expert | etc] as well as stat adjustments [+3 int
+      | +3 wil | -1 str | +2 per | +2 spd] and increased to t3 arcyne [Why would a
+      specialised graduate of a dedicated magic academy be shit at magick] and added
+      +3 spellpoints.
+  - image: added "Celestial Zauberer Staff" a new custom item given on roundstart
+      with class-specific flavour.
+  - code_imp: See above
+  Wesreidau:
+  - qol: Corrected erroneous flavor text on bronze kilts. Now in line with other kilts.
+  - qol: Corrected bronze kilt anvil recipe name.
+  - balance: Chain skirts and steel tassets now protect legs but not groin.
+  - balance: Steel tassets are now medium armor and not light.
+  - balance: Bronze skirts now protect legs and not groin.
+  - bugfix: Removed duplicate and misleading bronze skirt/kilt purchases from Merchant.
+  - refactor: Refactored the bronze skirt to skirt/bronzeskirt from being in hardened_leather.
+  wikimody:
+  - rscadd: Pestrian revive now also allows for reviving people with swaped heads
+  - rscadd: Pestra also stoped being a hipocrite and extends her "medical care for
+      everyone" commandment to undead (pestrian miracle no longer burns them, and
+      revive no longer explodes them)
+2026-10-13:
+  Arturlang:
+  - bugfix: hopefully fix game getting stuck in lobby
+  Battlezoz:
+  - bugfix: Basket hat now hides the face.
+  Cecily-C-Catherine:
+  - rscadd: Added new snout for small beaks
+  - rscadd: Added new tail
+  Colfer1:
+  - rscadd: adds wildkin markings to metal constructs and dolls
+  - bugfix: makes plain and realigns socks markings on females.
+  - bugfix: changes precisely 6 pixels on the updated plain body markings
+  - rscadd: Added an ooze spell that lets them use mirror transformation without a
+      mirror
+  GarrusVakarian:
+  - qol: squirt cap from 3 -> 5
+  - qol: A bunch of map changes
+  - rscadd: Added various gloryholes.
+  Hmeister-fake:
+  - rscadd: Footwraps now appear in character loadouts
+  - balance: Luck no longer effects Grappling or Resisting Grapples.
+  - balance: Luck has more impact when deciding where Lightning strikes.
+  - rscadd: Added Horse bondage gear to loadouts
+  - rscadd: Added the Zig box to loadouts
+  - rscadd: Standing still for 10+ minutes pauses hunger & thirst, during ERP for
+      example.
+  PolarTundraa:
+  - rscadd: Added tail and snout options from wild-kin to lupians
+  ProbablyCarl:
+  - bugfix: Nukes wallclock exploit.
+  - bugfix: Main exploit for the royal puzzlebox fixed. Kinda. Partly. It's better
+      now, trust. I'll redo this item later.
+  - rscadd: Stone javvies! Handed to LE as a quiver. Otherwise added as a general
+      crafting recipe.
+  - rscadd: Readds jousting mechanics.
+  - qol: Unbinds 'Prevent Movement' by default.
+  - balance: Pretty now provides -1 stress reduction in inspect. The timer has also
+      been raised to two minutes, from one.
+  - server: 24/7 Neuhill, infinite tickets.
+  - rscadd: MAA Dragoon. A firearm capable keepoid class. Additionally adjusts projectiles
+      for firearms to make them more punchy.
+  - balance: Astratan Spear TURBOBUFFED.
+  - bugfix: Returned gutted functionality of Overt Heretic.
+  - rscdel: Nukes Psydonite lock on Frei mercs. Additionally removes their crosses.
+  - rscadd: Hazardous water tiles, for later mapping use, introduced. These are not
+      currently mapped.
+  Protabs:
+  - rscadd: Added new orca-based snout sprite for Axian and Wildkin
+  - rscadd: Paper Duster clothing item.
+  - rscadd: Added crafting recipe for Paper Duster
+  - image: added 4 states to cloaks.dmi
+  - qol: Player genitals are now retained when using wildshape.
+  - rscadd: Psydonic Iron Armor set.
+  - bugfix: Fixed a bug concerning silver weapon anvil recipes.
+  R3N0mon:
+  - rscadd: All Virtues that add the 'Resident' Trait will now spawn the player character
+      in town if they would otherwise not do so.
+  - rscadd: Witches 1 step more powerful if OLD
+  - bugfix: fixed the spawn bug introduced by a tiny forgotten code change in the
+      Resident Virtue Spawner Code
+  - rscadd: Kobolds now start with Feral Appetite, able to eat raw foods and organs.
+  - rscadd: Slightly Buffed Silver Rapier damage
+  - rscadd: Added Arcayne Bolt and Guidance to Old Witch Mystagauge, added Fireball
+      to Old Witch (Old Magic)
+  - rscadd: Added more bronze limb virtues.
+  - bugfix: Changed Coal Runner Virtue description to the correct thing
+  - balance: rebalanced witch spells to make them less combat viable.
+  - rscadd: Glass Batch recipe
+  - rscadd: Added more alchemy recipes for grains, fruits, and dirt
+  - rscadd: Added Lesser Shapeshift t1 spell
+  RedCore3-3:
+  - rscadd: Added taur bodies as a choice for constructs
+  - rscadd: Added cobra hoods to the list of demi-human ears
+  Yuckuza:
+  - code_imp: Removed duplicated taur clothing logic. Shared proc lives in taur.dm
+  - image: New taur clothing sprites for saiga taurs. Includes special sprites for
+      psydonic and astratan tabards.
+  mypingishuge:
+  - rscadd: Added cause-specific collapse balloons for blood loss, suffocation, poison,
+      burns, and brute damage, repeating every 8 seconds until recovery or death.
+  - rscadd: Added colored dying gasp indicators and choking sounds during severe blood
+      loss.
+  - qol: The controlling player can see their own collapse balloons even while unconscious
+      or blind.
+  - qol: All nearby players can see dying gasps without medicine skill or Combat Aware.
+  - qol: Concurrent floating alerts stack vertically instead of overlapping.
+  - bugfix: Death Awareness safely handles characters without a mind.
+  - balance: Sleep deprivation no longer reduces stamina recovery or movement speed.
+      Other sleep mechanics remain unchanged.
+  - rscadd: Ported TheMysteriousDragon's Gefechtsgelehrter rework from Ratwood, including
+      the Celestial Zauberer Staff.
+  - image: Ported the new staff sprite.
+  - balance: Ported the Gefechtsgelehrter's updated armor, supplies, spells, arcane
+      skill, spellpoints, arcyne tier, and old-age adjustments.
+  - spellcheck: Ported the updated Gefechtsgelehrter role and tutorial descriptions.
