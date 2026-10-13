@@ -32,5 +32,5 @@
 	"}
 
 /datum/book_entry/cooking
-    abstract_type = /datum/book_entry/cooking
+	abstract_type = /datum/book_entry/cooking
 
