@@ -413,6 +413,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/flavortext_display
 
 	var/ooc_notes
+	var/roleplay_ad
 
 	var/rumour
 
@@ -830,6 +831,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Song:</b> <a href='?_src_=prefs;preference=ooc_extra;task=input'>Change URL</a>"
 			dat += "<a href='?_src_=prefs;preference=change_title;task=input'>Change Title</a>"
 			dat += "<a href='?_src_=prefs;preference=change_artist;task=input'>Change Artist</a>"
+			dat += "<br><b>Set a Roleplay Ad:</b> <a href='?_src_=prefs;preference=roleplay_ad;task=input'>Change</a>"
 			dat += "<br><b>OOC Extra Image/Video/Gif (Flavor Text):</b> <a href='?_src_=prefs;preference=ooc_extra_img;task=input'>Change</a>"
 			if(ooc_extra_img_link != null)
 				dat += "<br><img src='[ooc_extra_img_link]' width='100px' height='100px'>"
@@ -2249,6 +2251,24 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/datum/browser/popup = new(user, "Formatting Help", nwidth = 400, nheight = 450)
 					popup.set_content(dat.Join())
 					popup.open(FALSE)
+				if("roleplay_ad")
+					to_chat(user, span_notice("Your roleplay ad is saved for this character and posted automatically when you spawn. In-game, open OOC > Roleplay Ad (View) to browse ads, or Roleplay Ad (Set) to edit or remove yours. Leave this field empty to disable automatic posting."))
+					var/ad_slot = default_slot
+					var/new_ad = tgui_input_text(user, "Describe the roleplay you are looking for. Leave empty to remove your saved ad.", "Roleplay Ad", roleplay_ad, max_length = MAX_MESSAGE_LEN, multiline = TRUE, encode = FALSE, bigmodal = TRUE)
+					if(isnull(new_ad))
+						return
+					if(default_slot != ad_slot)
+						to_chat(user, span_warning("Your character slot changed. Reopen the roleplay ad editor for the character you want to edit."))
+						return
+					new_ad = copytext(new_ad, 1, MAX_MESSAGE_LEN + 1)
+					roleplay_ad = length(trim(new_ad)) ? new_ad : null
+					save_character()
+					if(ishuman(user))
+						var/mob/living/carbon/human/H = user
+						if(!H.roleplay_ad_is_gnoll && H.roleplay_ad_slot == ad_slot && H.roleplay_ad_owner == parent?.ckey)
+							H.roleplay_ad = roleplay_ad
+							H.publish_roleplay_ad()
+					to_chat(user, span_notice(roleplay_ad ? "Roleplay ad saved." : "Saved roleplay ad cleared."))
 				if("flavortext")
 					to_chat(user, "<span class='notice'>["<span class='bold'>Flavortext should not include nonphysical nonsensory attributes such as backstory or the character's internal thoughts.</span>"]</span>")
 					var/new_flavortext = tgui_input_text(user, "Input your character description:", "Flavortext", flavortext, multiline = TRUE,  encode = FALSE, bigmodal = TRUE)
@@ -3252,6 +3272,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character, icon_updates = 1, roundstart_checks = TRUE, character_setup = FALSE, antagonist = FALSE, skip_normal_prefs = FALSE)
 	if(skip_normal_prefs)
+		// Gnoll ads use the separate gnoll preferences, never the normal slot's ad.
+		character.roleplay_ad = gnoll_prefs?.roleplay_ad
+		character.roleplay_ad_slot = default_slot
+		character.roleplay_ad_owner = parent?.ckey
+		character.roleplay_ad_is_gnoll = TRUE
 		// For gnolls spawning from a non-gnoll base slot, we must not apply any base-slot state.
 		// Set species to gnoll immediately so advclass check_requirements can read dna.species.type.
 		character.set_species(/datum/species/gnoll, icon_update = FALSE)
@@ -3396,6 +3421,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.flavortext = flavortext
 
 	character.ooc_notes = ooc_notes
+	character.roleplay_ad_is_gnoll = FALSE
+	character.roleplay_ad = roleplay_ad
+	character.roleplay_ad_slot = default_slot
+	character.roleplay_ad_owner = parent?.ckey
 
 	// Rumours / Noble gossip
 	character.rumour = rumour

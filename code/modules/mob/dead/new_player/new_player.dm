@@ -806,6 +806,12 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		if(joined_area)
 			joined_area.on_joining_game(new_character)
 		new_character.update_fov_angles()
+		if(ishuman(new_character))
+			var/mob/living/carbon/human/H = new_character
+			H.publish_roleplay_ad(FALSE)
+			// Automatic posting is silent; the character-creation editor already explains the feature.
+			// if(H.roleplay_ad)
+			//	to_chat(H, span_notice("Your saved roleplay ad has been posted. Open OOC > Roleplay Ad (View) to browse ads, or Roleplay Ad (Set) to edit or remove yours."))
 		new_character = null
 		qdel(src)
 

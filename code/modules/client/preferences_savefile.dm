@@ -965,6 +965,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	S["flavortext"]			>> flavortext
 	S["ooc_notes"]			>> ooc_notes
+	roleplay_ad = null // Old savefiles and empty slots must not inherit another slot's ad.
+	S["roleplay_ad"] >> roleplay_ad
+	if(!istext(roleplay_ad))
+		roleplay_ad = null
+	else
+		roleplay_ad = copytext(roleplay_ad, 1, MAX_MESSAGE_LEN + 1)
 	S["ooc_extra"]			>> ooc_extra
 	S["ooc_extra_img"]		>> ooc_extra_img
 	S["ooc_extra_img_link"]	>> ooc_extra_img_link
@@ -1211,6 +1217,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["headshot_link"] , headshot_link)
 	WRITE_FILE(S["flavortext"] , html_decode(flavortext))
 	WRITE_FILE(S["ooc_notes"] , html_decode(ooc_notes))
+	WRITE_FILE(S["roleplay_ad"] , roleplay_ad)
 	WRITE_FILE(S["ooc_extra"] ,	ooc_extra)
 	WRITE_FILE(S["ooc_extra_img"] , ooc_extra_img)
 	WRITE_FILE(S["ooc_extra_img_link"] , ooc_extra_img_link)

@@ -132,6 +132,11 @@
 	var/origin = "Unknown"
 	var/flavortext = null
 	var/ooc_notes = null
+	/// Ad and originating save slot; retained on the actual body when preferences switch slots.
+	var/roleplay_ad
+	var/roleplay_ad_slot
+	var/roleplay_ad_owner
+	var/roleplay_ad_is_gnoll = FALSE
 	var/ooc_extra
 	var/ooc_extra_img
 	var/ooc_extra_img_link
