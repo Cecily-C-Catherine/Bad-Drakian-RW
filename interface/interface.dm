@@ -221,6 +221,21 @@ Hotkey-Mode: (hotkey-mode must be on)
 /client/verb/roleplay_ad_set()
 	set category = "OOC"
 	set name = "Roleplay Ad (Set)"
+	if(!ishuman(mob))
+		return
+	var/mob/living/carbon/human/C = mob
+	var/msg = tgui_input_text(C, "Set an advertisement for the roleplay you are looking for. Leave empty to remove your ad. This also updates this character's saved ad.", "Roleplay Ad", C.roleplay_ad, max_length = MAX_MESSAGE_LEN, multiline = TRUE, encode = FALSE, bigmodal = TRUE)
+	if(isnull(msg) || mob != C || QDELETED(C))
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN + 1)
+	C.roleplay_ad = length(trim(msg)) ? msg : null
+	var/saved = prefs?.save_roleplay_ad_for_character(C)
+	C.publish_roleplay_ad()
+	to_chat(C, span_info(C.roleplay_ad ? (saved ? "Roleplay ad set and saved." : "Roleplay ad set for this body.") : "Roleplay ad removed."))
+	log_game("[C] has set their Roleplay Ad to '[C.roleplay_ad]'.")
+
+	// Legacy setter retained for reference: publication now shares the saved-ad/examine-link path.
+/*
 	if(mob)
 		if(!ishuman(mob))
 			return
@@ -241,6 +256,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 		else if(has_old_ad)
 			LAZYREMOVE(GLOB.roleplay_ads,C.mobid)
 			to_chat(C, span_info("Roleplay ad removed."))
+*/
 
 /client/verb/changefps()
 	set category = "Options"
