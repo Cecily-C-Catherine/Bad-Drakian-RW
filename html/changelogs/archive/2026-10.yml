@@ -126,3 +126,98 @@
   - rscadd: Pestra also stoped being a hipocrite and extends her "medical care for
       everyone" commandment to undead (pestrian miracle no longer burns them, and
       revive no longer explodes them)
+2026-10-13:
+  Arturlang:
+  - bugfix: hopefully fix game getting stuck in lobby
+  Battlezoz:
+  - bugfix: Basket hat now hides the face.
+  Cecily-C-Catherine:
+  - rscadd: Added new snout for small beaks
+  - rscadd: Added new tail
+  Colfer1:
+  - rscadd: adds wildkin markings to metal constructs and dolls
+  - bugfix: makes plain and realigns socks markings on females.
+  - bugfix: changes precisely 6 pixels on the updated plain body markings
+  - rscadd: Added an ooze spell that lets them use mirror transformation without a
+      mirror
+  GarrusVakarian:
+  - qol: squirt cap from 3 -> 5
+  - qol: A bunch of map changes
+  - rscadd: Added various gloryholes.
+  Hmeister-fake:
+  - rscadd: Footwraps now appear in character loadouts
+  - balance: Luck no longer effects Grappling or Resisting Grapples.
+  - balance: Luck has more impact when deciding where Lightning strikes.
+  - rscadd: Added Horse bondage gear to loadouts
+  - rscadd: Added the Zig box to loadouts
+  - rscadd: Standing still for 10+ minutes pauses hunger & thirst, during ERP for
+      example.
+  PolarTundraa:
+  - rscadd: Added tail and snout options from wild-kin to lupians
+  ProbablyCarl:
+  - bugfix: Nukes wallclock exploit.
+  - bugfix: Main exploit for the royal puzzlebox fixed. Kinda. Partly. It's better
+      now, trust. I'll redo this item later.
+  - rscadd: Stone javvies! Handed to LE as a quiver. Otherwise added as a general
+      crafting recipe.
+  - rscadd: Readds jousting mechanics.
+  - qol: Unbinds 'Prevent Movement' by default.
+  - balance: Pretty now provides -1 stress reduction in inspect. The timer has also
+      been raised to two minutes, from one.
+  - server: 24/7 Neuhill, infinite tickets.
+  - rscadd: MAA Dragoon. A firearm capable keepoid class. Additionally adjusts projectiles
+      for firearms to make them more punchy.
+  - balance: Astratan Spear TURBOBUFFED.
+  - bugfix: Returned gutted functionality of Overt Heretic.
+  - rscdel: Nukes Psydonite lock on Frei mercs. Additionally removes their crosses.
+  - rscadd: Hazardous water tiles, for later mapping use, introduced. These are not
+      currently mapped.
+  Protabs:
+  - rscadd: Added new orca-based snout sprite for Axian and Wildkin
+  - rscadd: Paper Duster clothing item.
+  - rscadd: Added crafting recipe for Paper Duster
+  - image: added 4 states to cloaks.dmi
+  - qol: Player genitals are now retained when using wildshape.
+  - rscadd: Psydonic Iron Armor set.
+  - bugfix: Fixed a bug concerning silver weapon anvil recipes.
+  R3N0mon:
+  - rscadd: All Virtues that add the 'Resident' Trait will now spawn the player character
+      in town if they would otherwise not do so.
+  - rscadd: Witches 1 step more powerful if OLD
+  - bugfix: fixed the spawn bug introduced by a tiny forgotten code change in the
+      Resident Virtue Spawner Code
+  - rscadd: Kobolds now start with Feral Appetite, able to eat raw foods and organs.
+  - rscadd: Slightly Buffed Silver Rapier damage
+  - rscadd: Added Arcayne Bolt and Guidance to Old Witch Mystagauge, added Fireball
+      to Old Witch (Old Magic)
+  - rscadd: Added more bronze limb virtues.
+  - bugfix: Changed Coal Runner Virtue description to the correct thing
+  - balance: rebalanced witch spells to make them less combat viable.
+  - rscadd: Glass Batch recipe
+  - rscadd: Added more alchemy recipes for grains, fruits, and dirt
+  - rscadd: Added Lesser Shapeshift t1 spell
+  RedCore3-3:
+  - rscadd: Added taur bodies as a choice for constructs
+  - rscadd: Added cobra hoods to the list of demi-human ears
+  Yuckuza:
+  - code_imp: Removed duplicated taur clothing logic. Shared proc lives in taur.dm
+  - image: New taur clothing sprites for saiga taurs. Includes special sprites for
+      psydonic and astratan tabards.
+  mypingishuge:
+  - rscadd: Added cause-specific collapse balloons for blood loss, suffocation, poison,
+      burns, and brute damage, repeating every 8 seconds until recovery or death.
+  - rscadd: Added colored dying gasp indicators and choking sounds during severe blood
+      loss.
+  - qol: The controlling player can see their own collapse balloons even while unconscious
+      or blind.
+  - qol: All nearby players can see dying gasps without medicine skill or Combat Aware.
+  - qol: Concurrent floating alerts stack vertically instead of overlapping.
+  - bugfix: Death Awareness safely handles characters without a mind.
+  - balance: Sleep deprivation no longer reduces stamina recovery or movement speed.
+      Other sleep mechanics remain unchanged.
+  - rscadd: Ported TheMysteriousDragon's Gefechtsgelehrter rework from Ratwood, including
+      the Celestial Zauberer Staff.
+  - image: Ported the new staff sprite.
+  - balance: Ported the Gefechtsgelehrter's updated armor, supplies, spells, arcane
+      skill, spellpoints, arcyne tier, and old-age adjustments.
+  - spellcheck: Ported the updated Gefechtsgelehrter role and tutorial descriptions.
