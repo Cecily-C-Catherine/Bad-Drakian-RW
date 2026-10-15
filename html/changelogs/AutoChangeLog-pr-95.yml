@@ -1,0 +1,10 @@
+author: "mypingishuge, RedCore"
+delete-after: True
+changes:
+  - rscadd: "(mypingishuge) Save a roleplay ad in character creation and automatically post it when your character spawns."
+  - rscadd: "(mypingishuge) Click character names in the roleplay ads list to open their examine windows."
+  - rscadd: "(mypingishuge) Gnoll Customization has its own saved roleplay ad, used when spawning as a gnoll."
+  - bugfix: "(mypingishuge) Automatic changelog entries are now compiled into the in-game changelog after PRs merge into main."
+  - bugfix: "(mypingishuge) Restored missing in-game changelog entries."
+  - rscadd: "(RedCore) Added an in-game cooking guide."
+  - bugfix: "(RedCore) Ducal steak and frybird recipes now use appropriate amounts of garlic."
