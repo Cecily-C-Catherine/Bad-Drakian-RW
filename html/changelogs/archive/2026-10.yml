@@ -222,6 +222,8 @@
       skill, spellpoints, arcyne tier, and old-age adjustments.
   - spellcheck: Ported the updated Gefechtsgelehrter role and tutorial descriptions.
 2026-10-15:
+  _Rarity:
+  - qol: Ghosts can now use the subtle LOOC verb or the @ shortcut.
   mypingishuge, RedCore:
   - rscadd: (mypingishuge) Save a roleplay ad in character creation and automatically
       post it when your character spawns.
