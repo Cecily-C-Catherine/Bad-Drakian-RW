@@ -7,7 +7,7 @@
 	range = 6
 	chargetime = 0
 	releasedrain = 100
-	recharge_time = 20 SECONDS //Do not increase this, allow me to explain:
+	recharge_time = 20 SECONDS //Do not increase this.
 
 	/// Ignore crosses and give a different message
 	var/powerful = FALSE
