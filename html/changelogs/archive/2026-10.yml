@@ -224,6 +224,13 @@
 2026-10-15:
   _Rarity:
   - qol: Ghosts can now use the subtle LOOC verb or the @ shortcut.
+  mypingishuge:
+  - rscadd: Every round now offers at least two Gnoll role slots, including Adventure.
+      Larger packs granted by Chaos modifiers remain unchanged.
+  - balance: Chaos no longer spends modifier budget on Low Gnolls, since two Gnoll
+      slots are already guaranteed.
+  - spellcheck: Updated the round vote description to explain Gnoll availability in
+      both modes.
   mypingishuge, RedCore:
   - rscadd: (mypingishuge) Save a roleplay ad in character creation and automatically
       post it when your character spawns.
