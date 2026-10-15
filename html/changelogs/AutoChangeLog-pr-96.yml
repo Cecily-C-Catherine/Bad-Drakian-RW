@@ -1,4 +1,0 @@
-author: "mypingishuge"
-delete-after: True
-changes:
-  - rscadd: "The make-out panel action now restores 1.5 oxygen damage per second to its recipient while active, independently of panel speed and force, with discreet private notices when healing begins."
