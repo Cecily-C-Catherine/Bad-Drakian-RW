@@ -185,6 +185,7 @@
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
+	LAZYREMOVE(GLOB.roleplay_ads, mobid)
 	if(SScity_assembly?.is_alderman(src))
 		var/departing_name = real_name
 		var/departing_job = job

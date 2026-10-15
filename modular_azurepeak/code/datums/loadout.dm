@@ -2361,8 +2361,12 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	path = /obj/item/recipe_book/survival
 
 /datum/loadout_item/cooking_recipes
-	name = "Guide to Cooking"
+	name = "Guide to Brewing"
 	path = /obj/item/recipe_book/cooking
+
+/datum/loadout_item/cooking_guide
+	name = "Guide to Cooking"
+	path = /obj/item/recipe_book/cooking_guide
 
 /datum/loadout_item/tenbibble
 	name = "The Verses and Acts of the Ten"
