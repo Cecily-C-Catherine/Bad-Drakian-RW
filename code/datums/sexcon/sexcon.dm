@@ -32,6 +32,10 @@
 	var/desire_stop = FALSE
 	/// What is the current performed action
 	var/current_action = null
+	/// Invalidates oxygen-healing callbacks when a make-out action stops or restarts.
+	var/kissing_oxygen_session = 0
+	/// Recipient-side cooldown shared by every initiator; base recovery cannot stack.
+	var/kissing_oxygen_next_heal = 0
 	/// Enum of desired speed
 	var/speed = SEX_SPEED_MID
 	/// Enum of desired force
