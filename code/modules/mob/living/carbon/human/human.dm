@@ -185,6 +185,7 @@
 	dna.initialize_dna()
 
 /mob/living/carbon/human/Destroy()
+	LAZYREMOVE(GLOB.roleplay_ads, mobid)
 	if(SScity_assembly?.is_alderman(src))
 		var/departing_name = real_name
 		var/departing_job = job
@@ -204,7 +205,9 @@
 			if(F)
 				F.remove_pending_invite(real_name)
 		incoming_fellowship_invites.Cut()
-	return ..()
+	. = ..()
+	// after the parent chain, or damage overlay updates during it put us straight back in
+	STOP_PROCESSING(SSdamoverlays, src)
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -1113,9 +1116,12 @@
 	RETURN_TYPE(/obj/item/organ/breasts)
 	return getorganslot(ORGAN_SLOT_BREASTS)
 
-/mob/living/carbon/human/proc/is_fertile()
+/mob/living/carbon/human/proc/is_fertile(orifice = SEX_PART_CUNT)
+	if(orifice & SEX_PART_TAIL_MAW)
+		var/obj/item/organ/tail/manticore/tail = get_manticore_tail(src)
+		return tail?.fertility
 	var/obj/item/organ/vagina/vagina = getorganslot(ORGAN_SLOT_VAGINA)
-	return vagina.fertility
+	return vagina?.fertility
 
 /mob/living/carbon/human/proc/is_virile()
 	var/obj/item/organ/testicles/testicles = getorganslot(ORGAN_SLOT_TESTICLES)
@@ -1186,6 +1192,8 @@
 	H.heatstroke_timer_id = null
 	var/def_zone = BODY_ZONE_HEAD
 	var/obj/item/bodypart/BP = H.get_bodypart(def_zone)
+	if(!BP)
+		return
 	for(var/datum/wound/W in BP.wounds)
 		if(istype(W, /datum/wound/heatexhaustion)||istype(W, /datum/wound/heatstroke))
 			return

@@ -1,5 +1,7 @@
 
 /client
+	/// Concurrent floating alerts displayed to this client.
+	var/active_balloon_count = 0
 		//////////////////////
 		//BLACK MAGIC THINGS//
 		//////////////////////

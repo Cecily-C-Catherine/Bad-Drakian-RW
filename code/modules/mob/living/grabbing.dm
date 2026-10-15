@@ -99,6 +99,14 @@
 				D.grabdropped(src)
 		handaction = null
 
+/obj/item/grabbing/proc/update_grabbed_spell_hud()
+	if(sublimb_grabbed != BODY_ZONE_PRECISE_MOUTH)
+		return
+	if(!iscarbon(grabbed))
+		return
+	var/mob/living/carbon/C = grabbed
+	C.update_action_buttons_icon()
+
 /obj/item/grabbing/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	if(isobj(grabbed))
@@ -119,6 +127,7 @@
 			if(part)
 				var/released_held_index = part.held_index
 				LAZYREMOVE(part.grabbedby, src)
+				update_grabbed_spell_hud()
 				carbonmob.update_hud_hand_slot(released_held_index)
 				carbonmob.mark_zone_selector_hud_dirty()
 				part = null
@@ -130,6 +139,7 @@
 			grabbee.l_grab = null
 		if(grabbee.mouth == src)
 			grabbee.mouth = null
+			grabbee.update_action_buttons_icon()
 		grabbee = null
 	for(var/datum/D in dependents)
 		D.grabdropped(src)
@@ -232,10 +242,6 @@
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
 				return FALSE
-			if(user.badluck(2))
-				badluckmessage(user)
-				user.stop_pulling()
-				return FALSE
 			if(limb_grabbed && grab_state > 0) //this implies a carbon victim
 				if(iscarbon(M) && M != user)
 					user.stamina_add(rand(1,3))
@@ -262,11 +268,6 @@
 		if(/datum/intent/grab/hostage)
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
-				return FALSE
-			if(user.badluck(4))
-				badluckmessage(user)
-				user.stop_pulling()
-				return FALSE
 			if(limb_grabbed && grab_state > GRAB_PASSIVE) //this implies a carbon victim
 				if(ishuman(M) && M != user)
 					var/mob/living/carbon/human/H = M
@@ -313,10 +314,6 @@
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
 				return FALSE
-			if(user.badluck(2))
-				badluckmessage(user)
-				user.stop_pulling()
-				return FALSE
 			if(limb_grabbed && grab_state > 0) //this implies a carbon victim
 				if(iscarbon(M))
 					user.stamina_add(rand(3,8))
@@ -324,10 +321,6 @@
 		if(/datum/intent/grab/twistitem)
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
-				return FALSE
-			if(user.badluck(4))
-				badluckmessage(user)
-				user.stop_pulling()
 				return FALSE
 			if(limb_grabbed && grab_state > 0) //this implies a carbon victim
 				if(ismob(M))
@@ -337,10 +330,6 @@
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
 				return FALSE
-			if(user.badluck(4))
-				badluckmessage(user)
-				user.stop_pulling()
-				return FALSE
 			user.stamina_add(rand(3,13))
 			if(isitem(sublimb_grabbed))
 				removeembeddeditem(user)
@@ -349,10 +338,6 @@
 		if(/datum/intent/grab/shove)
 			if(user.buckled)
 				to_chat(user, span_warning("I can't do this while buckled!"))
-				return FALSE
-			if(user.badluck(4))
-				badluckmessage(user)
-				user.stop_pulling()
 				return FALSE
 			if(!(user.mobility_flags & MOBILITY_STAND))
 				to_chat(user, span_warning("I must stand.."))
@@ -382,10 +367,6 @@
 							span_userdanger("[user] pins me to the ground!"), span_hear("I hear a sickening sound of pugilism!"), COMBAT_MESSAGE_RANGE)
 				M.release_pin_hold(pin_hold)
 			else
-				if(user.badluck(4))
-					badluckmessage(user)
-					user.stop_pulling()
-					return FALSE
 				user.stamina_add(rand(5,15))
 				if(M.compliance || prob(clamp((((4 + (((user.STASTR - M.STASTR)/2) + skill_diff)) * 10 + rand(-5, 5)) * combat_modifier), 5, 95)))
 					M.visible_message(span_danger("[user] shoves [M] to the ground!"), \
@@ -395,10 +376,6 @@
 					M.visible_message(span_warning("[user] tries to shove [M]!"), \
 									span_danger("[user] tries to shove me!"), span_hear("I hear a sickening sound of pugilism!"), COMBAT_MESSAGE_RANGE)
 		if(/datum/intent/grab/disarm)
-			if(user.badluck(4))
-				badluckmessage(user)
-				user.stop_pulling()
-				return FALSE
 			var/obj/item/I
 			if(sublimb_grabbed == BODY_ZONE_PRECISE_L_HAND && M.active_hand_index == 1)
 				I = M.get_active_held_item()
@@ -440,10 +417,6 @@
 				return
 
 /obj/item/grabbing/proc/twistlimb(mob/living/user) //implies limb_grabbed and sublimb are things
-	if(user.badluck(2))
-		badluckmessage(user)
-		user.stop_pulling()
-		return
 	var/mob/living/carbon/C = grabbed
 	var/armor_block = C.run_armor_check(limb_grabbed, "slash")
 	var/damage = user.get_punch_dmg()
@@ -582,7 +555,7 @@
 		L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class) //It hurts to rip it out, get surgery you dingus.
 		user.dropItemToGround(src) // this will unset vars like limb_grabbed
 		user.put_in_hands(I)
-		C.emote("paincrit", TRUE)
+		C.emote("paincrit", forced = TRUE)
 		playsound(C, 'sound/foley/flesh_rem.ogg', 100, TRUE, -2)
 		if(usr == src)
 			user.visible_message(span_notice("[user] rips [I] out of [user.p_their()] [L.name]!"), span_notice("I rip [I] from my [L.name]."))
@@ -595,7 +568,7 @@
 		M.apply_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class, BRUTE) //It hurts to rip it out, get surgery you dingus.
 		user.dropItemToGround(src) // this will unset vars like limb_grabbed
 		user.put_in_hands(I)
-		M.emote("paincrit", TRUE)
+		M.emote("paincrit", forced = TRUE)
 		playsound(M, 'sound/foley/flesh_rem.ogg', 100, TRUE, -2)
 		if(user == M)
 			user.visible_message(span_notice("[user] rips [I] out of [user.p_them()]self!"), span_notice("I remove [I] from myself."))
@@ -606,10 +579,6 @@
 
 /obj/item/grabbing/attack_turf(turf/T, mob/living/user)
 	if(!valid_check())
-		return
-	if(user.badluck(2))
-		badluckmessage(user)
-		user.stop_pulling()
 		return
 	user.changeNext_move(CLICK_CD_GRABBING)
 	switch(user.used_intent.type)
@@ -643,10 +612,6 @@
 /obj/item/grabbing/attack_obj(obj/O, mob/living/user)
 	if(!valid_check())
 		return
-	if(user.badluck(2))
-		badluckmessage(user)
-		user.stop_pulling()
-		return
 	user.changeNext_move(CLICK_CD_GRABBING)
 	if(user.used_intent.type == /datum/intent/grab/smash)
 		if(isstructure(O) && O.blade_dulling != DULLING_CUT)
@@ -663,10 +628,6 @@
 
 
 /obj/item/grabbing/proc/smashlimb(atom/A, mob/living/user) //implies limb_grabbed and sublimb are things
-	if(user.badluck(4))
-		badluckmessage(user)
-		user.stop_pulling()
-		return
 	var/mob/living/carbon/C = grabbed
 	var/armor_block = C.run_armor_check(limb_grabbed, d_type, armor_penetration = BLUNT_DEFAULT_PENFACTOR)
 	var/damage = user.get_punch_dmg()

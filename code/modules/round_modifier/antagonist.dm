@@ -1,3 +1,4 @@
+/*
 /datum/round_modifier/low_bandits
 	name = "Low Bandits"
 	desc = "Some free men have come."
@@ -14,7 +15,20 @@
 	incompatible = list(/datum/round_modifier/low_bandits)
 	job_slots = list("Bandit" = 7)
 
+/datum/round_modifier/high_bandits
+	name = "High Bandits"
+	desc = "The free men have come in force."
+	cost = 4
+	weight = 15
+	min_chaos = 3
+	incompatible = list(/datum/round_modifier/medium_bandits, /datum/round_modifier/low_bandits)
+	job_slots = list("Bandit" = 10)
+*/
+
 /datum/round_modifier/low_gnolls
+	// Two Gnoll slots are guaranteed without spending the random modifier budget.
+	// Retain this modifier for reference, but exclude it from all normal Chaos levels (0-3).
+	min_chaos = 99
 	name = "Low Gnolls"
 	desc = "The dregs of a bloodbeast pack."
 	cost = 1
@@ -43,15 +57,6 @@
 	cost = 4
 	min_chaos = 3
 	job_slots = list("Wretch" = 5)
-
-/datum/round_modifier/high_bandits
-	name = "High Bandits"
-	desc = "The free men have come in force."
-	cost = 4
-	weight = 15
-	min_chaos = 3
-	incompatible = list(/datum/round_modifier/medium_bandits, /datum/round_modifier/low_bandits)
-	job_slots = list("Bandit" = 10)
 
 /*
 /datum/round_modifier/werewolf

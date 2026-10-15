@@ -12,8 +12,26 @@
 	GLOB.carbon_list += src
 	if(GLOB.blood_sight_viewers)
 		AddComponent(/datum/component/blood_glow)
+	RegisterSignal(src, list(
+		SIGNAL_ADDTRAIT(TRAIT_PARALYSIS),
+		SIGNAL_REMOVETRAIT(TRAIT_PARALYSIS),
+		SIGNAL_ADDTRAIT(TRAIT_SPELLCOCKBLOCK),
+		SIGNAL_REMOVETRAIT(TRAIT_SPELLCOCKBLOCK),
+		SIGNAL_ADDTRAIT(TRAIT_MUTE),
+		SIGNAL_REMOVETRAIT(TRAIT_MUTE),
+		SIGNAL_ADDTRAIT(TRAIT_BAGGED),
+		SIGNAL_REMOVETRAIT(TRAIT_BAGGED),
+		SIGNAL_ADDTRAIT(TRAIT_GARGLE_SPEECH),
+		SIGNAL_REMOVETRAIT(TRAIT_GARGLE_SPEECH),
+	), PROC_REF(on_spell_availability_trait_changed))
+
+/mob/living/carbon/proc/on_spell_availability_trait_changed(datum/source, trait)
+	SIGNAL_HANDLER
+	update_action_buttons_icon()
 
 /mob/living/carbon/Destroy()
+	if(critical_alert_timer)
+		deltimer(critical_alert_timer)
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
@@ -30,6 +48,7 @@
 	if(underwear)
 		QDEL_NULL(underwear)
 	last_mind = null
+	STOP_PROCESSING(SSiconupdates, src)
 	GLOB.carbon_list -= src
 
 /mob/living/carbon/ZImpactDamage(turf/T, levels)
@@ -466,11 +485,11 @@
 	breakouttime = untying ? min(I.strip_delay, I.slipouttime) : I.slipouttime
 	//0.1 per point above 10, so the scale runs the full way to 20 rather than bottoming out at 15
 	if((STASTR > 10))
-		var/time_mod = breakouttime * (STASTR - 10) * 0.1
+		var/time_mod = breakouttime * (STASTR - 10) * 0.2
 		breakouttime = max(0, breakouttime - time_mod)
 	if(!untying && mind && mind.has_antag_datum(/datum/antagonist/zombie))
 		breakouttime = 10 SECONDS
-	if(STASTR >= 20 && !untying)
+	if(STASTR >= 15 && !untying)
 		cuff_break = INSTANT_CUFFBREAK
 		breakouttime = I.breakouttime
 	if(!cuff_break)
@@ -1105,6 +1124,7 @@
 /mob/living/carbon/update_stat()
 	if(status_flags & GODMODE)
 		return
+	var/old_stat = stat
 	if(stat != DEAD)
 		if(health <= HEALTH_THRESHOLD_NEARDEATH && HAS_TRAIT(src, TRAIT_DEATHBARGAIN))
 			src.apply_status_effect(/datum/status_effect/buff/undermaidenbargainheal)
@@ -1115,6 +1135,30 @@
 			cure_blind(UNCONSCIOUS_BLIND)
 			return
 		if(((blood_volume in -INFINITY to BLOOD_VOLUME_SURVIVE) && !HAS_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE)) || IsUnconscious() || IsSleeping() || getOxyLoss() > 75 || (HAS_TRAIT(src, TRAIT_DEATHCOMA)) || (health <= HEALTH_THRESHOLD_FULLCRIT && !HAS_TRAIT(src, TRAIT_NOHARDCRIT)))
+			if(stat != UNCONSCIOUS) // Transition into hardcrit - announce once
+				var/bled_out = (blood_volume in -INFINITY to BLOOD_VOLUME_SURVIVE) && !HAS_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE)
+				var/suffocating = getOxyLoss() > 75
+				var/poisoned = health <= HEALTH_THRESHOLD_FULLCRIT && getToxLoss() >= getFireLoss() && getToxLoss() >= getBruteLoss()
+				var/burned = health <= HEALTH_THRESHOLD_FULLCRIT && getFireLoss() >= getBruteLoss()
+				if(bled_out)
+					visible_message(span_danger("<b>[src] collapses, [src.p_their()] skin pale as parchment!</b>"), \
+						span_userdanger("My blood... there is nothing left. I cannot feel my limbs."))
+				else if(suffocating)
+					visible_message(span_danger("<b>[src] collapses, [src.p_their()] lips turning blue!</b>"), \
+						span_userdanger("I cannot breathe... the world grows dark."))
+				else if(poisoned)
+					visible_message(span_danger("<b>[src] collapses, [src.p_their()] body wracked with poison!</b>"), \
+						span_userdanger("The poison is too much... I cannot go on."))
+				else if(burned)
+					if(!mind)
+						visible_message(span_danger("<b>[src] collapses - [src.p_their()] will is too weak to endure the burns!</b>"))
+					else
+						visible_message(span_danger("<b>[src] collapses, [src.p_their()] flesh charred and smoking!</b>"), \
+							span_userdanger("My body is too burnt to go on!"))
+					playsound(src, 'sound/health/burning.ogg', 60, TRUE)
+				else if(health <= HEALTH_THRESHOLD_FULLCRIT)
+					visible_message(span_danger("<b>[src] collapses, broken and bloodied!</b>"), \
+						span_userdanger("My bones are shattered... I cannot go on."))
 			stat = UNCONSCIOUS
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src
@@ -1136,6 +1180,51 @@
 	update_health_hud()
 //	update_tod_hud()
 	update_spd()
+	if(stat != old_stat)
+		update_action_buttons_icon()
+	update_critical_alert()
+
+/// Repeat the active collapse balloon while its cause still applies.
+/mob/living/carbon/proc/update_critical_alert()
+	var/cause
+	var/message
+	if(stat == UNCONSCIOUS && !(status_flags & GODMODE))
+		if((blood_volume in -INFINITY to BLOOD_VOLUME_SURVIVE) && !HAS_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE))
+			cause = "bloodloss"
+			message = "<font color='#bb2b2b'>bled out!</font>"
+		else if(getOxyLoss() > 75)
+			cause = "suffocation"
+			message = "<font color='#5b7ec4'>suffocating!</font>"
+		else if(health <= HEALTH_THRESHOLD_FULLCRIT)
+			if(getToxLoss() >= getFireLoss() && getToxLoss() >= getBruteLoss())
+				cause = "poison"
+				message = "<font color='#2b8a3e'>poisoned!</font>"
+			else if(getFireLoss() >= getBruteLoss())
+				cause = "burns"
+				message = "<font color='#bb2b2b'>burnt down!</font>"
+			else
+				cause = "brute"
+				message = "<font color='#bb2b2b'>beaten down!</font>"
+
+	if(!cause)
+		if(critical_alert_timer)
+			deltimer(critical_alert_timer)
+		critical_alert_timer = null
+		critical_alert_cause = null
+		return
+	if(cause == critical_alert_cause && critical_alert_timer)
+		return
+	if(critical_alert_timer)
+		deltimer(critical_alert_timer)
+	critical_alert_cause = cause
+	balloon_alert_to_viewers(message, ignored_mobs = list(src))
+	// The controlling player receives this even when unconsciousness makes them blind.
+	balloon_alert(src, message)
+	critical_alert_timer = addtimer(CALLBACK(src, PROC_REF(repeat_critical_alert)), 8 SECONDS, TIMER_STOPPABLE)
+
+/mob/living/carbon/proc/repeat_critical_alert()
+	critical_alert_timer = null
+	update_critical_alert()
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()

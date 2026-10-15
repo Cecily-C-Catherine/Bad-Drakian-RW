@@ -522,21 +522,21 @@
 	chargetime = 0
 	releasedrain = 5
 	miracle = TRUE
-	devotion_cost = 50//See below as to why. Slowdown and funny damage.
+	devotion_cost = 100//See below as to why. Slowdown and funny damage.
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	associated_skill = /datum/skill/magic/holy
-	var/obj/item/rogueweapon/conjured_spear = null
 
 /obj/effect/proc_holder/spell/self/astratan_spear/cast(list/targets, mob/living/user = usr)
-	if(src.conjured_spear)
-		qdel(conjured_spear)
+	dispel_conjured_item()
 	var/obj/item/rogueweapon/R = new /obj/item/rogueweapon/light_spear(user.drop_location())
-	R.AddComponent(/datum/component/conjured_item)
 	user.put_in_hands(R)
-	src.conjured_spear = R
+	set_conjured_item(R)
 	return TRUE
 
 //The spear itself. A summoned weapon you charge(throw for now) for an AoE effect.
+//I kinda screwed up on this the first time. Let's make it absurd to make it fun.
+//How? Higher throw force. Exposed on hit. Longer debuff. Extreme damage against the undead.
+//Will this make it useful? I 'unno. It'll be fun, though.
 /obj/item/rogueweapon/light_spear
 	name = "lightning spear"
 	desc = "A spear of light, pulled from Her domain. Throw far. Strike true."
@@ -548,7 +548,7 @@
 	possible_item_intents = list(INTENT_GENERIC)
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	mob_throw_hit_sound = 'sound/magic/lightning.ogg'
-	throwforce = 15//The damage does not typically come from the impact. This is here as a fallback.
+	throwforce = 35
 	thrown_bclass = BCLASS_PIERCE//As above.
 	thrown_damage_flag = "piercing"//Let it have some fun against boots, gloves, clothing, etc. C'mon...
 	throw_speed = 2
@@ -593,9 +593,10 @@
 	playsound(effect_layer, 'sound/magic/lightning.ogg', 50)
 	for(var/mob/living/L in effect_layer.contents)
 		if(L.mob_biotypes & MOB_UNDEAD)
-			strike_damage += 15
+			strike_damage += 50
 		L.electrocute_act(strike_damage * damage_mod, src, 1, SHOCK_NOSTUN)
-		L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 3 SECONDS)
+		L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 5 SECONDS)
+		L.apply_status_effect(/datum/status_effect/debuff/exposed, 5 SECONDS)
 	sleep(10)
 	qdel(src)
 

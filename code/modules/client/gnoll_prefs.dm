@@ -20,6 +20,7 @@
 	var/headshot_link
 	var/flavortext
 	var/ooc_notes
+	var/roleplay_ad
 	var/ooc_extra
 	var/ooc_extra_img
 	var/ooc_extra_img_link
@@ -320,6 +321,7 @@
 	dat += "<br><b>Song:</b> <a href='?_src_=gnoll_prefs;action=ooc_extra'>Change URL</a>"
 	dat += "<a href='?_src_=gnoll_prefs;action=change_title'>Change Title</a>"
 	dat += "<a href='?_src_=gnoll_prefs;action=change_artist'>Change Artist</a>"
+	dat += "<br><b>Set a Roleplay Ad:</b> <a href='?_src_=gnoll_prefs;action=roleplay_ad'>Change</a>"
 	dat += "<br><b>OOC Extra Image/Video/Gif (Flavor Text):</b> <a href='?_src_=gnoll_prefs;action=ooc_extra_img'>Change</a>"
 	if(ooc_extra_img_link != null)
 		dat += "<br><img src='[ooc_extra_img_link]' width='100px' height='100px'>"
@@ -507,7 +509,7 @@
 			to_chat(user, "<span class='notice'>Please use a relatively SFW image of the head and shoulder area to maintain immersion level. Lastly, ["<span class='bold'>do not use a real life photo or use any image that is less than serious.</span>"]</span>")
 			to_chat(user, "<span class='notice'>If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.</span>")
 			to_chat(user, "<span class='notice'>Keep in mind that the photo will be downsized to 325x325 pixels, so the more square the photo, the better it will look.</span>")
-			var/new_headshot_link = tgui_input_text(user, "Input the headshot link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Headshot", headshot_link,  encode = FALSE)
+			var/new_headshot_link = tgui_input_text(user, "Input the headshot link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Headshot", headshot_link,  encode = FALSE)
 			if(new_headshot_link == null)
 				return
 			if(new_headshot_link == "")
@@ -538,6 +540,26 @@
 			var/datum/browser/popup = new(user, "Formatting Help", nwidth = 400, nheight = 350)
 			popup.set_content(dat.Join())
 			popup.open(FALSE)
+		if("roleplay_ad")
+			to_chat(user, span_notice("Your gnoll roleplay ad is saved separately from your normal character's ad and posted automatically when you spawn as a gnoll. Open OOC > Roleplay Ad (View) in-game to browse ads, or Roleplay Ad (Set) to edit or remove yours. Leave empty to disable automatic posting."))
+			var/datum/preferences/P = user.client.prefs
+			var/ad_slot = P.default_slot
+			var/new_ad = tgui_input_text(user, "Describe the roleplay you are looking for as your gnoll. Leave empty to remove the saved ad.", "Gnoll Roleplay Ad", roleplay_ad, max_length = MAX_MESSAGE_LEN, multiline = TRUE, encode = FALSE, bigmodal = TRUE)
+			if(isnull(new_ad))
+				return
+			if(P.default_slot != ad_slot || P.gnoll_prefs != src)
+				to_chat(user, span_warning("Your character slot changed. Reopen Gnoll Customization to edit its ad."))
+				return
+			new_ad = copytext(new_ad, 1, MAX_MESSAGE_LEN + 1)
+			roleplay_ad = length(trim(new_ad)) ? new_ad : null
+			P.save_character()
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				if(H.roleplay_ad_is_gnoll && H.roleplay_ad_slot == ad_slot && H.roleplay_ad_owner == P.parent?.ckey)
+					H.roleplay_ad = roleplay_ad
+					H.publish_roleplay_ad()
+			to_chat(user, span_notice(roleplay_ad ? "Gnoll roleplay ad saved." : "Saved gnoll roleplay ad cleared."))
+			gnoll_show_ui(user)
 		if("flavortext")
 			to_chat(user, "<span class='notice'>["<span class='bold'>Flavortext should not include nonphysical nonsensory attributes such as backstory or the character's internal thoughts.</span>"]</span>")
 			var/new_flavortext = tgui_input_text(user, "Input your gnoll character description:", "Flavortext", flavortext, multiline = TRUE,  encode = FALSE, bigmodal = TRUE)
@@ -637,7 +659,7 @@
 			to_chat(user, "<span class='notice'>Keep in mind that all three images are displayed next to eachother and justified to fill a horizontal rectangle. As such, vertical images work best.</span>")
 			to_chat(user, "<span class='notice'>You can only have a maximum of ["<span class='bold'>THREE IMAGES</span>"] in your gallery at a time.</span>")
 
-			var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Gallery Image",  encode = FALSE)
+			var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Gallery Image",  encode = FALSE)
 
 			if(new_galleryimg == null)
 				return
@@ -646,7 +668,7 @@
 				gnoll_show_ui(user)
 				return
 			if(!valid_headshot_link(user, new_galleryimg))
-				to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox).</span>")
+				to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox, imgbb, filegarden).</span>")
 				new_galleryimg = null
 				gnoll_show_ui(user)
 				return
@@ -665,7 +687,7 @@
 			to_chat(user, "<span class='notice'>Keep in mind that all three images are displayed next to eachother and justified to fill a horizontal rectangle. As such, vertical images work best.</span>")
 			to_chat(user, "<span class='notice'>You can only have a maximum of ["<span class='bold'>THREE IMAGES</span>"] in your gallery at a time.</span>")
 
-			var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Gallery Image",  encode = FALSE)
+			var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Gallery Image",  encode = FALSE)
 
 			if(new_galleryimg == null)
 				return
@@ -674,7 +696,7 @@
 				gnoll_show_ui(user)
 				return
 			if(!valid_headshot_link(user, new_galleryimg))
-				to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox).</span>")
+				to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox, imgbb, filegarden).</span>")
 				new_galleryimg = null
 				gnoll_show_ui(user)
 				return
@@ -784,7 +806,7 @@
 
 		if("ooc_extra_img")
 			to_chat(user, "<span class='notice'>Add a link to images/videos (jpg, png, gif, mp4) that will be displayed in your Flavor Text.</span>")
-			to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox.</span>")
+			to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox, imgbb, filegarden.</span>")
 			to_chat(user, "<font color='#d6d6d6'>Leave a single space to delete it.</font>")
 			to_chat(user, "<font color='red'>Abuse of this will get you banned.</font>")
 			var/link = tgui_input_text(user, "Input the image/video link (https):", "OOC Extra Image", ooc_extra_img_link, encode = FALSE)
@@ -822,7 +844,7 @@
 
 		if("nsfw_ooc_extra_img")
 			to_chat(user, "<span class='notice'>Add a link to NSFW images/videos (jpg, png, gif, mp4) that will be displayed in your NSFW Flavor Text.</span>")
-			to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox.</span>")
+			to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox, imgbb, filegarden.</span>")
 			to_chat(user, "<font color='#d6d6d6'>Leave a single space to delete it.</font>")
 			to_chat(user, "<font color='red'>Abuse of this will get you banned.</font>")
 			var/link = tgui_input_text(user, "Input the image/video link (https):", "NSFW OOC Extra Image", nsfw_ooc_extra_img_link, encode = FALSE)
@@ -935,6 +957,12 @@
 	if(!valid_headshot_link(null, headshot_link, TRUE))
 		headshot_link = null
 
+	roleplay_ad = null // Older savefiles must not inherit another slot's gnoll ad.
+	S["gnoll_roleplay_ad"] >> roleplay_ad
+	if(!istext(roleplay_ad))
+		roleplay_ad = null
+	else
+		roleplay_ad = copytext(roleplay_ad, 1, MAX_MESSAGE_LEN + 1)
 	S["gnoll_flavortext"]			>> flavortext
 	S["gnoll_ooc_notes"]			>> ooc_notes
 	S["gnoll_ooc_extra"]			>> ooc_extra
@@ -982,6 +1010,7 @@
 		WRITE_FILE(S["gnoll_statpack"] , preferences_typepath_or_null(gnoll_statpack))
 
 		WRITE_FILE(S["gnoll_headshot_link"] , headshot_link)
+		WRITE_FILE(S["gnoll_roleplay_ad"], roleplay_ad)
 		WRITE_FILE(S["gnoll_flavortext"] , html_decode(flavortext))
 		WRITE_FILE(S["gnoll_ooc_notes"] , html_decode(ooc_notes))
 		WRITE_FILE(S["gnoll_ooc_extra"] ,	ooc_extra)

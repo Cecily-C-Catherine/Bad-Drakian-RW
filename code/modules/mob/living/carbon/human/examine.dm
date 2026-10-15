@@ -107,14 +107,19 @@
 			. += span_notice("You get the feeling [m2] most valuable possession is \a [item].")
 
 	if(user != src && get_dist(user, src) <= 3)
-		var/datum/charflaw/malodorous/malodorous_flaw = src.get_flaw(/datum/charflaw/malodorous)
-		if((malodorous_flaw && malodorous_flaw.is_reeking()) || has_status_effect(/datum/status_effect/debuff/stinky_contact))
+		var/reeking_naturally = is_redolent_reeking()
+		if(reeking_naturally || has_status_effect(/datum/status_effect/debuff/stinky_contact))
 			var/can_see_stink = !isliving(user) // adminghost always sees it
 			if(isliving(user))
 				var/mob/living/living_user = user
 				can_see_stink = living_user.can_smell() && !HAS_TRAIT(living_user, TRAIT_NOSTINK)
 			if(can_see_stink)
-				. += span_greentext("They reek.")
+				if(reeking_naturally)
+					. += redolent_examine_text(redolent_scent_type, redolent_scent)
+				else
+					var/datum/status_effect/debuff/stinky_contact/contact_stink = has_status_effect(/datum/status_effect/debuff/stinky_contact)
+					if(contact_stink)
+						. += contact_stink.get_examine_text()
 
 	var/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
@@ -661,6 +666,10 @@
 				msg += "[capitalize(m2)] eyes are closed."
 			else if(has_status_effect(/datum/status_effect/debuff/sleepytime))
 				msg += "[m1] looking a little tired."
+			else if(has_status_effect(/datum/status_effect/debuff/sleepytime/t2))
+				msg += "[m1] looking pretty tired."
+			else if(has_status_effect(/datum/status_effect/debuff/sleepytime/t3))
+				msg += "[m1] looking ridiculously tired."
 	else
 		msg += "[m1] unconscious."
 //		else
@@ -1008,6 +1017,14 @@
 		if(GLOB.lord_titles[name])
 			. += span_notice("[m3] been granted the title of \"[GLOB.lord_titles[name]]\".")
 
+		// Agents of the Bathhouse (granted by a token of the Bathhouse) are a discreet roll:
+		// only those who work the stews - or fellow agents - recognise one, and only while
+		// the agent's face is bare (this branch never runs for the masked or unknown).
+		if(HAS_TRAIT(src, TRAIT_AGENT_BATHHOUSE) && ishuman(user))
+			var/mob/living/carbon/human/bath_viewer = user
+			if((bath_viewer.job in GLOB.bathhouse_positions) || HAS_TRAIT(bath_viewer, TRAIT_AGENT_BATHHOUSE))
+				. += span_notice("[m1] an agent of the Bathhouse.")
+
 		if(HAS_TRAIT(src, TRAIT_NOBLE) || HAS_TRAIT(src, TRAIT_DEFILED_NOBLE))
 			if(social_rank < SOCIAL_RANK_NOBLE)
 				. += span_notice("A minor noble.")
@@ -1047,11 +1064,11 @@
 					. += span_aiprivradio("[capitalize(m2)] body is [!external.has_dried_up ? "covered in cum" : "covered in dried cum"]!")
 				if(facial)
 					. += span_aiprivradio("[capitalize(m2)] face is [!facial.has_dried_up ? "glazed with cum" : "plastered with dried cum"]!")
-				if(creampie && !drip)
+				if(creampie && (!drip || !(drip.orifice & ~SEX_PART_TAIL_MAW)))
 					. += span_aiprivradio("[capitalize(m2)] crotch is [!creampie.has_dried_up ? "a cummy mess" : "stained with dried cum"]!")
-				if(drip)
+				if(drip && drip.orifice != SEX_PART_TAIL_MAW)
 					var/is_long = istype(drip, /datum/status_effect/creampie_leak/long)
-					switch(drip.orifice)
+					switch(drip.orifice & ~SEX_PART_TAIL_MAW)
 						if(SEX_PART_CUNT)
 							. += span_aiprivradio("[m1] [is_long ? "gushing cum from [m2] sex" : "trickling cum from [m2] sex"]!")
 						if(SEX_PART_ANUS)
@@ -1296,7 +1313,7 @@
 		var/mob/living/living_examiner = examiner
 		if(HAS_TRAIT(examiner, TRAIT_DUSTRUNNER))
 			heretic_text += "Fellow runner. The dust moves."
-		else if(living_examiner?.patron?.type == /datum/patron/inhumen/matthios)
+		else if(isliving(examiner) && living_examiner.patron?.type == /datum/patron/inhumen/matthios)
 			heretic_text += "A Guild runner, by the look of them."
 		else if(examiner.job == "Bathhouse Attendant" || examiner.job == "Bathmaster")
 			heretic_text += "One of the Guild's runners. I know the signs."

@@ -125,10 +125,12 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/shake = TRUE
 	var/no_redflash = FALSE
 	var/sexable = FALSE
+	var/erp_visuals = TRUE
 	var/chastenable = FALSE
 	var/chastity_hardmode = CHASTITY_HARDMODE_DISABLED
 	var/extreme_erp = FALSE
 	var/edging = FALSE
+	var/free_use_default = FALSE
 	var/sensitive_brands = FALSE
 	var/facial_brands = FALSE
 	var/pubes = FALSE
@@ -164,7 +166,19 @@ GLOBAL_LIST_EMPTY(chosen_names)
 /datum/preferences/proc/get_base_points()
 	return 10
 
-// Points gained from selected vices (+1 per selected vice)
+/datum/preferences/proc/get_default_redolent_scent(scent_type)
+	switch(scent_type)
+		if("Gross")
+			return "rotting meat and sour sweat"
+		if("Pleasant")
+			return "wildflowers and clean rain"
+	return "earth and sweat"
+
+/// The leading text shown on examine before the custom scent, matching redolent_examine_text().
+/datum/preferences/proc/redolent_scent_leadin(scent_type)
+	return scent_type == "Gross" ? "They reek of" : "They smell of"
+
+// Points gained from additional selected vices (+1 per vice after slot one)
 /datum/preferences/proc/get_vice_points()
 	var/points = 0
 	for(var/i = 1 to 6)
@@ -304,6 +318,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/datum/charflaw/vice4
 	var/datum/charflaw/vice5
 	var/datum/charflaw/vice6
+	var/redolent_type = "Neutral"
+	var/redolent_scent = ""
 
 	var/setspouse = ""
 	var/gender_choice = ANY_GENDER
@@ -333,6 +349,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/list/custom_descriptors = list()
 
 	var/char_accent = "No accent"
+	var/char_mannerism = "No mannerism"
 
 	// Vocal bark prefs
 	var/bark_id = "mutedc3"
@@ -400,6 +417,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/flavortext_display
 
 	var/ooc_notes
+	var/roleplay_ad
 
 	var/rumour
 
@@ -798,6 +816,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Nickname Color: </b> </b><a href='?_src_=prefs;preference=highlight_color;task=input'>Change</a>"
 			dat += "<br><b>Voice Pitch: </b><a href='?_src_=prefs;preference=voice_pitch;task=input'>[voice_pitch]</a>"
 			dat += "<br><b>Accent:</b> <a href='?_src_=prefs;preference=char_accent;task=input'>[char_accent]</a>"
+			dat += "<br><b>Speech Mannerism:</b> <a href='?_src_=prefs;preference=char_mannerism;task=input'>[char_mannerism]</a>"
 			dat += "<br><b>Features:</b> <a href='?_src_=prefs;preference=customizers;task=menu'>Change</a>"
 			dat += "<br><b>Sprite Scale:</b><a href='?_src_=prefs;preference=body_size;task=input'>[(features["body_size"] * 100)]%</a>"
 			dat += "<br><b>Markings:</b> <a href='?_src_=prefs;preference=markings;task=menu'>Change</a>"
@@ -818,6 +837,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Song:</b> <a href='?_src_=prefs;preference=ooc_extra;task=input'>Change URL</a>"
 			dat += "<a href='?_src_=prefs;preference=change_title;task=input'>Change Title</a>"
 			dat += "<a href='?_src_=prefs;preference=change_artist;task=input'>Change Artist</a>"
+			dat += "<br><b>Set a Roleplay Ad:</b> <a href='?_src_=prefs;preference=roleplay_ad;task=input'>Change</a>"
 			dat += "<br><b>OOC Extra Image/Video/Gif (Flavor Text):</b> <a href='?_src_=prefs;preference=ooc_extra_img;task=input'>Change</a>"
 			if(ooc_extra_img_link != null)
 				dat += "<br><img src='[ooc_extra_img_link]' width='100px' height='100px'>"
@@ -2216,7 +2236,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					to_chat(user, "<span class='notice'>Please use a relatively SFW image of the head and shoulder area to maintain immersion level. Lastly, ["<span class='bold'>do not use a real life photo or use any image that is less than serious.</span>"]</span>")
 					to_chat(user, "<span class='notice'>If the photo doesn't show up properly in-game, ensure that it's a direct image link that opens properly in a browser.</span>")
 					to_chat(user, "<span class='notice'>Keep in mind that the photo will be downsized to 325x325 pixels, so the more square the photo, the better it will look.</span>")
-					var/new_headshot_link = tgui_input_text(user, "Input the headshot link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Headshot", headshot_link,  encode = FALSE)
+					var/new_headshot_link = tgui_input_text(user, "Input the headshot link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Headshot", headshot_link,  encode = FALSE)
 					if(new_headshot_link == null)
 						return
 					if(new_headshot_link == "")
@@ -2268,6 +2288,24 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/datum/browser/popup = new(user, "Formatting Help", nwidth = 400, nheight = 450)
 					popup.set_content(dat.Join())
 					popup.open(FALSE)
+				if("roleplay_ad")
+					to_chat(user, span_notice("Your roleplay ad is saved for this character and posted automatically when you spawn. In-game, open OOC > Roleplay Ad (View) to browse ads, or Roleplay Ad (Set) to edit or remove yours. Leave this field empty to disable automatic posting."))
+					var/ad_slot = default_slot
+					var/new_ad = tgui_input_text(user, "Describe the roleplay you are looking for. Leave empty to remove your saved ad.", "Roleplay Ad", roleplay_ad, max_length = MAX_MESSAGE_LEN, multiline = TRUE, encode = FALSE, bigmodal = TRUE)
+					if(isnull(new_ad))
+						return
+					if(default_slot != ad_slot)
+						to_chat(user, span_warning("Your character slot changed. Reopen the roleplay ad editor for the character you want to edit."))
+						return
+					new_ad = copytext(new_ad, 1, MAX_MESSAGE_LEN + 1)
+					roleplay_ad = length(trim(new_ad)) ? new_ad : null
+					save_character()
+					if(ishuman(user))
+						var/mob/living/carbon/human/H = user
+						if(!H.roleplay_ad_is_gnoll && H.roleplay_ad_slot == ad_slot && H.roleplay_ad_owner == parent?.ckey)
+							H.roleplay_ad = roleplay_ad
+							H.publish_roleplay_ad()
+					to_chat(user, span_notice(roleplay_ad ? "Roleplay ad saved." : "Saved roleplay ad cleared."))
 				if("flavortext")
 					to_chat(user, "<span class='notice'>["<span class='bold'>Flavortext should not include nonphysical nonsensory attributes such as backstory or the character's internal thoughts.</span>"]</span>")
 					var/new_flavortext = tgui_input_text(user, "Input your character description:", "Flavortext", flavortext, multiline = TRUE,  encode = FALSE, bigmodal = TRUE)
@@ -2302,8 +2340,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						rumour = null
 						ShowChoices(user)
 						return
-					if(length(new_rumour) > 400)
-						to_chat(user, span_warning("Rumours cannot exceed 400 characters."))
+					if(length(new_rumour) > 750)
+						to_chat(user, span_warning("Rumours cannot exceed 750 characters."))
 						ShowChoices(user)
 						return
 					rumour = new_rumour
@@ -2319,8 +2357,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						noble_gossip = null
 						ShowChoices(user)
 						return
-					if(length(new_gossip) > 400)
-						to_chat(user, span_notice("Noble gossip cannot exceed 400 characters."))
+					if(length(new_gossip) > 750)
+						to_chat(user, span_notice("Noble gossip cannot exceed 750 characters."))
 						ShowChoices(user)
 						return
 					noble_gossip = new_gossip
@@ -2369,7 +2407,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					to_chat(user, "<span class='notice'>Keep in mind that all three images are displayed next to eachother and justified to fill a horizontal rectangle. As such, vertical images work best.</span>")
 					to_chat(user, "<span class='notice'>You can only have a maximum of ["<span class='bold'>THREE IMAGES</span>"] in your gallery at a time.</span>")
 
-					var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Gallery Image",  encode = FALSE)
+					var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Gallery Image",  encode = FALSE)
 
 					if(new_galleryimg == null)
 						return
@@ -2378,7 +2416,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						ShowChoices(user)
 						return
 					if(!valid_headshot_link(user, new_galleryimg))
-						to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox).</span>")
+						to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox, imgbb, filegarden).</span>")
 						new_galleryimg = null
 						ShowChoices(user)
 						return
@@ -2397,7 +2435,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					to_chat(user, "<span class='notice'>Keep in mind that all three images are displayed next to eachother and justified to fill a horizontal rectangle. As such, vertical images work best.</span>")
 					to_chat(user, "<span class='notice'>You can only have a maximum of ["<span class='bold'>THREE IMAGES</span>"] in your gallery at a time.</span>")
 
-					var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox):", "Gallery Image",  encode = FALSE)
+					var/new_galleryimg = tgui_input_text(user, "Input the image link (https, hosts: gyazo, lensdump, imgbox, catbox, imgbb, filegarden):", "Gallery Image",  encode = FALSE)
 
 					if(new_galleryimg == null)
 						return
@@ -2406,7 +2444,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						ShowChoices(user)
 						return
 					if(!valid_headshot_link(user, new_galleryimg))
-						to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox).</span>")
+						to_chat(user, "<span class='notice'>Invalid image link. Make sure it's a direct link from a valid host (gyazo, lensdump, imgbox, catbox, imgbb, filegarden).</span>")
 						new_galleryimg = null
 						ShowChoices(user)
 						return
@@ -2516,7 +2554,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 				if("ooc_extra_img")
 					to_chat(user, "<span class='notice'>Add a link to images/videos (jpg, png, gif, mp4) that will be displayed in your Flavor Text.</span>")
-					to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox.</span>")
+					to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox, imgbb, filegarden.</span>")
 					to_chat(user, "<font color='#d6d6d6'>Leave a single space to delete it.</font>")
 					to_chat(user, "<font color='red'>Abuse of this will get you banned.</font>")
 					var/link = tgui_input_text(user, "Input the image/video link (https):", "OOC Extra Image", ooc_extra_img_link, encode = FALSE)
@@ -2553,7 +2591,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 				if("nsfw_ooc_extra_img")
 					to_chat(user, "<span class='notice'>Add a link to NSFW images/videos (jpg, png, gif, mp4) that will be displayed in your NSFW Flavor Text.</span>")
-					to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox.</span>")
+					to_chat(user, "<span class='notice'>Images/videos will be constrained by width but have limitless height. Suitable hosts: catbox, discord, gyazo, lensdump, imgbox, imgbb, filegarden.</span>")
 					to_chat(user, "<font color='#d6d6d6'>Leave a single space to delete it.</font>")
 					to_chat(user, "<font color='red'>Abuse of this will get you banned.</font>")
 					var/link = tgui_input_text(user, "Input the image/video link (https):", "NSFW OOC Extra Image", nsfw_ooc_extra_img_link, encode = FALSE)
@@ -2745,6 +2783,23 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 								preview_text = "<span class='[accent_preview_span]'>[preview_text]</span>"
 
 						to_chat(user, span_info("<b>[selectedaccent] Preview:</b> [preview_text]"))
+
+				if("char_mannerism")
+					var/selected_mannerism = tgui_input_list(user, "Choose your character's speech mannerism:", "Character Preference", GLOB.character_mannerisms)
+					if(selected_mannerism)
+						char_mannerism = selected_mannerism
+						var/test_message = "Hello friend, yes this is good. My Lord rides through the Duchy with servants and soldiers; the captain and sergeant guard the church while archers and cavalry hold the north road. My sword and shield are sharp, the water flows refreshingly, and we thank the Duke before saying goodbye."
+						var/accent_preview = apply_accent_preview(char_accent, test_message)
+						var/preview_message = accent_preview ? "[accent_preview]" : test_message
+						var/preview_text = apply_mannerism_preview(selected_mannerism, preview_message)
+
+						var/list/accent_preview_spans = GLOB.accent_spans?[char_accent]
+						if(accent_preview_spans?.len)
+							var/accent_preview_span = accent_preview_spans[1]
+							if(accent_preview_span)
+								preview_text = "<span class='[accent_preview_span]'>[preview_text]</span>"
+
+						to_chat(user, span_info("<b>[selected_mannerism] Preview:</b> [preview_text]"))
 
 				if("ooccolor")
 					var/new_ooccolor = color_pick_sanitized(user, "Choose your OOC colour:", "Game Preference",ooccolor)
@@ -3126,7 +3181,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					user << browse(null, "window=preferences") //closes job selection
 					user << browse(null, "window=mob_occupation")
 					user << browse(null, "window=latechoices") //closes late job selection
-					user << browse(null, "window=migration") // Closes migrant menu
+					migrant.hide_ui() // Closes migrant menu
 
 					SStriumphs.remove_triumph_buy_menu(user.client)
 
@@ -3254,6 +3309,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character, icon_updates = 1, roundstart_checks = TRUE, character_setup = FALSE, antagonist = FALSE, skip_normal_prefs = FALSE)
 	if(skip_normal_prefs)
+		// Gnoll ads use the separate gnoll preferences, never the normal slot's ad.
+		character.roleplay_ad = gnoll_prefs?.roleplay_ad
+		character.roleplay_ad_slot = default_slot
+		character.roleplay_ad_owner = parent?.ckey
+		character.roleplay_ad_is_gnoll = TRUE
 		// For gnolls spawning from a non-gnoll base slot, we must not apply any base-slot state.
 		// Set species to gnoll immediately so advclass check_requirements can read dna.species.type.
 		character.set_species(/datum/species/gnoll, icon_update = FALSE)
@@ -3332,6 +3392,9 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.highlight_color = highlight_color
 	character.nickname = nickname
 
+	if(character.sexcon && free_use_default)
+		character.sexcon.freeuse = TRUE
+
 	character.eye_color = eye_color
 	var/origin_lang = FALSE
 	if(origin && origin.origin_language)
@@ -3395,6 +3458,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.flavortext = flavortext
 
 	character.ooc_notes = ooc_notes
+	character.roleplay_ad_is_gnoll = FALSE
+	character.roleplay_ad = roleplay_ad
+	character.roleplay_ad_slot = default_slot
+	character.roleplay_ad_owner = parent?.ckey
 
 	// Rumours / Noble gossip
 	character.rumour = rumour
@@ -3455,6 +3522,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	else
 		char_accent = "No accent"
 		character.char_accent = char_accent
+
+	if (char_mannerism in GLOB.character_mannerisms)
+		character.char_mannerism = char_mannerism
+	else
+		char_mannerism = "No mannerism"
+		character.char_mannerism = char_mannerism
 
 	if(culinary_preferences)
 		apply_culinary_preferences(character)
@@ -3518,7 +3591,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		reset_all_customizer_accessory_colors()
 
 /proc/valid_headshot_link(mob/user, value, silent = FALSE, list/valid_extensions = list("jpg", "png", "jpeg"))
-	var/static/link_regex = regex(@"i\.gyazo.com|.\.l3n\.co|(images2|thumbs2)\.imgbox\.com|files\.catbox\.moe") //gyazo, lensdump, imgbox, catbox
+	var/static/link_regex = regex(@"i\.gyazo\.com/|.\.l3n\.co/|(images2|thumbs2)\.imgbox\.com/|files\.catbox\.moe/|i\.ibb\.co/|file\.garden/") //gyazo, lensdump, imgbox, catbox, imgbb, filegarden
 
 	if(!length(value))
 		return FALSE
@@ -3529,7 +3602,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			to_chat(user, "<span class='warning'>Your link must be https!</span>")
 		return FALSE
 
-	if(!findtext(value, ".") || findtext(value, "<") || findtext(value, ">") || findtext(value, "]") || findtext(value, "\["))	//there is no link in the world that would ever need < or >
+	if(!findtext(value, ".") || findtext(value, "<") || findtext(value, ">") || findtext(value, "]") || findtext(value, "\[") || findtext(value, "'") || findtext(value, "\""))	//there is no link in the world that would ever need < or >
 		if(!silent)
 			to_chat(user, "<span class='warning'>Invalid link!</span>")
 		return FALSE
@@ -3545,14 +3618,14 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	find_index = findtext(value, link_regex)
 	if(find_index != 9)
 		if(!silent)
-			to_chat(usr, "<span class='warning'>The link must be hosted on one of the following sites: 'Gyazo, Lensdump, Imgbox, Catbox'</span>")
+			to_chat(usr, "<span class='warning'>The link must be hosted on one of the following sites: 'Gyazo, Lensdump, Imgbox, Catbox, ImgBB, File Garden'</span>")
 		return FALSE
 	return TRUE
 
 /datum/preferences/proc/is_active_migrant()
 	if(!migrant)
 		return FALSE
-	if(!migrant.active)
+	if(!migrant.queued_wave)
 		return FALSE
 	return TRUE
 

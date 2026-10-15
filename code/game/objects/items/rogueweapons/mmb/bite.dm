@@ -146,6 +146,7 @@
 		B.grabbee = user
 		B.limb_grabbed = BP
 		B.sublimb_grabbed = used_limb
+		B.update_grabbed_spell_hud()
 
 		lastattacker = user.real_name
 		lastattackerckey = user.ckey
@@ -176,6 +177,9 @@
 
 /obj/item/grabbing/bite/valid_check()
 	// We require adjacency to count the grab as valid
+	if(!grabbee || !grabbed)
+		qdel(src)
+		return FALSE
 
 	if(isdullahan(grabbee) && ishuman(grabbed))
 		var/mob/living/carbon/human/target = grabbed

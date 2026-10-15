@@ -126,6 +126,11 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	path = /obj/item/reagent_containers/glass/bottle/waterskin
 	triumph_cost = 2
 
+/datum/loadout_item/zigbox
+	name = "Zig box"
+	path = /obj/item/storage/belt/rogue/pouch/zigarrete/nicotine
+	triumph_cost = 5
+
 /datum/loadout_item/flint
 	name = "Flint"
 	path = /obj/item/flint
@@ -332,6 +337,10 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	name = "Duelist's Hat"
 	path = /obj/item/clothing/head/roguetown/duelhat
 
+/datum/loadout_item/beehood
+	name = "Beekeper's Hood"
+	path = /obj/item/clothing/head/roguetown/beekeeper
+
 /datum/loadout_item/hood
 	name = "Hood"
 	path = /obj/item/clothing/head/roguetown/roguehood
@@ -430,7 +439,7 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	path = /obj/item/clothing/cloak/templar/abyssor
 
 /datum/loadout_item/tabard/necra
-	name = "Abyssor Tabard"
+	name = "Necran Tabard"
 	path = /obj/item/clothing/cloak/templar/necra
 
 /datum/loadout_item/tabard/psydon
@@ -586,6 +595,16 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	name = "Simple Shoes"
 	path = /obj/item/clothing/shoes/roguetown/simpleshoes
 
+/datum/loadout_item/paddedfootwraps
+	name = "Padded Footwraps"
+	path = /obj/item/clothing/shoes/roguetown/boots/footwraps/padded
+	triumph_cost = 2
+
+/datum/loadout_item/heleatherfootwraps
+	name = "Hardened Leather Footwraps"
+	path = /obj/item/clothing/shoes/roguetown/boots/footwraps/hleather
+	triumph_cost = 2
+
 //SHIRTS
 /datum/loadout_item/longcoat
 	name = "Longcoat"
@@ -598,6 +617,10 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 /datum/loadout_item/Necromrobe
     name = "Necromancer Robes"
     path = /obj/item/clothing/suit/roguetown/shirt/robe/necromancer
+
+/datum/loadout_item/guilder_jacket
+	name = "Guilder Jacket"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/merchant
 
 /datum/loadout_item/phys_robe
 	name = "Physicker's Robe"
@@ -642,6 +665,14 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 /datum/loadout_item/exoticsilkbra
 	name = "Exotic Silk Bra"
 	path = /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra
+
+/datum/loadout_item/greenbra
+	name = "Green Exotic Silk Bra"
+	path = /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/green
+
+/datum/loadout_item/redbra
+	name = "Red Exotic Silk Bra"
+	path = /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/red
 
 /datum/loadout_item/bottomtunic
 	name = "Low-cut Tunic"
@@ -795,10 +826,27 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	name = "Sirwal"
 	path = /obj/item/clothing/under/roguetown/sirwal
 
+/datum/loadout_item/thong
+	name = "Thong"
+	path = /obj/item/clothing/under/roguetown/thong
+
 //ACCESSORIES
 /datum/loadout_item/wrappings
 	name = "Handwraps"
 	path = /obj/item/clothing/wrists/roguetown/wrappings
+
+
+/datum/loadout_item/bronze_duelist_goggles
+	name = "Bronze Duelist Goggles"
+	path = /obj/item/clothing/mask/rogue/spectacles/duelist/bronze
+
+/datum/loadout_item/golden_spectacles
+	name = "Golden Spectacles"
+	path = /obj/item/clothing/mask/rogue/spectacles/golden
+
+/datum/loadout_item/fingerless_leather_gloves
+	name = "Fingerless Leather Gloves"
+	path = /obj/item/clothing/gloves/roguetown/fingerless_leather
 
 /datum/loadout_item/allwrappings
 	name = "Cloth Wrappings"
@@ -824,6 +872,14 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	name = "Exotic Silk Belt"
 	path = /obj/item/storage/belt/rogue/leather/exoticsilkbelt
 
+/datum/loadout_item/greenskirt
+	name = "Green Exotic Silk Belt"
+	path = /obj/item/storage/belt/rogue/leather/exoticsilkbelt/skirtgreen
+
+/datum/loadout_item/redskirt
+	name = "Red Exotic Silk Belt"
+	path = /obj/item/storage/belt/rogue/leather/exoticsilkbelt/skirtred
+
 /datum/loadout_item/butlersuspenders
 	name = "Suspenders"
 	path = /obj/item/storage/belt/rogue/leather/suspenders/butler
@@ -847,6 +903,14 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 /datum/loadout_item/exoticsilkmask
 	name = "Exotic Silk Mask"
 	path = /obj/item/clothing/mask/rogue/exoticsilkmask
+
+/datum/loadout_item/maskgreen
+	name = "Green Exotic Silk Mask"
+	path = /obj/item/clothing/mask/rogue/exoticsilkmask/green
+
+/datum/loadout_item/maskred
+	name = "Red Exotic Silk Mask"
+	path = /obj/item/clothing/mask/rogue/exoticsilkmask/red
 
 /datum/loadout_item/duelmask
 	name = "Duelist's Mask"
@@ -1793,6 +1857,16 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	path = /obj/item/clothing/suit/roguetown/shirt/freifechter
 	triumph_cost = 3
 
+/datum/loadout_item/tri_fencing_shirt_shepherd
+	name = "Shepherd's Shirt (Padded)"
+	path = /obj/item/clothing/suit/roguetown/shirt/freifechter/shepherd
+	triumph_cost = 3
+
+/datum/loadout_item/tri_fencing_vest_shepherd
+	name = "Shepherd's Vest (Padded)"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy/shepherd
+	triumph_cost = 3
+
 /datum/loadout_item/tri_gambeson
 	name = "Gambeson"
 	path = /obj/item/clothing/suit/roguetown/armor/gambeson
@@ -2287,8 +2361,12 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 	path = /obj/item/recipe_book/survival
 
 /datum/loadout_item/cooking_recipes
-	name = "Guide to Cooking"
+	name = "Guide to Brewing"
 	path = /obj/item/recipe_book/cooking
+
+/datum/loadout_item/cooking_guide
+	name = "Guide to Cooking"
+	path = /obj/item/recipe_book/cooking_guide
 
 /datum/loadout_item/tenbibble
 	name = "The Verses and Acts of the Ten"
@@ -2585,3 +2663,25 @@ GLOBAL_LIST_INIT(loadout_items, init_subtypes(/datum/loadout_item))
 /datum/loadout_item/caparison/fogbeast/azure
 	name = "Ducal Caparison (Fogbeast)"
 	path = /obj/item/caparison/fogbeast/azure
+
+//Horsey gear :3
+
+/datum/loadout_item/horsey/head
+	name = "Horsey Head Bit"
+	path = /obj/item/clothing/head/roguetown/horsey
+
+/datum/loadout_item/horsey/mask
+	name = "Horsey Eye Blinders"
+	path = /obj/item/clothing/mask/rogue/horsey
+
+/datum/loadout_item/horsey/corsette
+	name = "Horsey Harness Corset"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/studded/bikini/horsey
+
+/datum/loadout_item/horsey/gloves
+	name = "Horsey Arm Harness"
+	path = /obj/item/clothing/gloves/roguetown/leather/horsey
+
+/datum/loadout_item/horsey/shoes
+	name = "Horsey Leg Harness"
+	path = /obj/item/clothing/shoes/roguetown/boots/horsey
