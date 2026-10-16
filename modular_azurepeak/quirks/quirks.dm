@@ -86,7 +86,7 @@
 /datum/quirk/resilientlover
 	name = "Resilient Lover"
 	desc = "My body is resilient during intimacy."
-	custom_text = "Take one third of oxygen and brute damage from ERP panel mechanics and prevent pelvis fractures from those actions. Automatic pain complaints are suppressed; critical pain sounds become softer groans while preserving sadomasochistic vices satisfaction."
+	custom_text = "Take one third of oxygen and brute damage from ERP panel mechanics and prevent pelvis and jaw fractures from those actions. Automatic pain complaints are suppressed; critical pain sounds become softer groans while preserving sadomasochistic vices satisfaction."
 	point_cost = 0
 	added_traits = list(TRAIT_RESILIENT_LOVER)
 
