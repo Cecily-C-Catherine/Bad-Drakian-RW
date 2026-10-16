@@ -250,3 +250,33 @@
   - rscadd: (RedCore) Added an in-game cooking guide.
   - bugfix: (RedCore) Ducal steak and frybird recipes now use appropriate amounts
       of garlic.
+2026-10-16:
+  Guidesu:
+  - rscadd: Added a Background slot to character setup, separate from Virtues. Backgrounds
+      give skills and traits and let you choose an equipment pack on spawn, placed
+      in your stash.
+  - rscadd: Militiaman, Toxophilite, Performer, Intellectual, Sleuth, Cunning Provisioner,
+      Forester, Light Steps and the Artificer's, Blacksmith's, Tailor's, Physician's,
+      Hunter's, Miner's, Brawler's, Duelist's and Dungeoneer's Apprentice are now
+      Backgrounds with equipment pack choices.
+  - rscadd: 'New Backgrounds: Enchanter''s Apprentice, Sailor and Rogue Alchemist.'
+  - rscadd: 'New virtue: Second Background, lets you pick a second Background after
+      spawning.'
+  - rscadd: Blacksmith's Apprentice (Scrapper) knows Scrapper's Smelt, which melts
+      a metal item into an ingot.
+  - rscdel: Removed the old Virtue versions of those backgrounds and the Arsonist
+      virtue. Characters using them keep loading but get a warning to pick a replacement.
+  - rscdel: Toxophilite and Crossbow Levy are merged into the Toxophilite Background.
+  - balance: Light Steps no longer gives a flat +3 stealth; its Skulker and Larcenous
+      packs add to stealth, lockpicking and stealing up to Expert.
+  - balance: Dungeoneer's Apprentice (Executioner) gets an iron greataxe instead of
+      a stone woodcutting axe.
+  - balance: Clerk, Steward, Merchant and Shophand cannot take crafting Backgrounds.
+  - qol: Background choice is saved with presets and shown in the virtues menu and
+      preset summary.
+  mypingishuge:
+  - rscadd: Added Resilient Lover, a zero-point quirk that reduces oxygen and brute
+      damage from ERP panel actions to one third and prevents pelvis and jaw fractures
+      from those actions.
+  - qol: Resilient Lover removes repeated pain complaints during ERP panel actions
+      and replaces the harsh critical-pain sound with a softer groan.
