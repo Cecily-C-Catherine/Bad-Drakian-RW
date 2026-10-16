@@ -1871,7 +1871,9 @@
 /datum/sex_controller/proc/try_jaw_crush(mob/living/carbon/human/target)
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong) && force > SEX_FORCE_MID)
 		if(user?.client?.prefs?.extreme_erp && target?.client?.prefs?.extreme_erp)
-			if(!target.has_wound(/datum/wound/fracture/mouth))
+			// Original fracture check retained; only the panel jaw fracture is blocked by the quirk.
+			// if(!target.has_wound(/datum/wound/fracture/mouth))
+			if(!HAS_TRAIT(target, TRAIT_RESILIENT_LOVER) && !target.has_wound(/datum/wound/fracture/mouth))
 				if(prob(10))
 					var/obj/item/bodypart/mouth = target.get_bodypart(check_zone(BODY_ZONE_PRECISE_MOUTH))
 					mouth.add_wound(/datum/wound/fracture)
