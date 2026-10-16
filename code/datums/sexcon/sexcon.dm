@@ -901,7 +901,9 @@
 				effective_target.add_stress(/datum/stressevent/unseemly_made_love)
 			user.add_stress(/datum/stressevent/cummax)
 	if(!oral && force >= SEX_FORCE_HIGH && (user.has_flaw(/datum/charflaw/addiction/sadist) || effective_target.has_flaw(/datum/charflaw/addiction/masochist)))
-		effective_target.emote("paincrit", forced = TRUE) // this satiates the sadomasochists in range
+		// Original call retained for rollback; use a softer critical pain sound for quirk holders while retaining vice satisfaction.
+		// effective_target.emote("paincrit", forced = TRUE) // this satiates the sadomasochists in range
+		effective_target.panel_pain_emote("paincrit", forced = TRUE)
 	if(ishuman(user) && ishuman(target) && user.client && target.client)
 		eora_register_consensual_pair(user, target)
 
@@ -981,7 +983,51 @@
 	oxyloss_amt *= oxyloss_multiplier
 	if(oxyloss_amt <= 0)
 		return
-	action_target.adjustOxyLoss(oxyloss_amt)
+	// Original direct damage call retained for rollback; the helper applies the quirk resistance.
+	// action_target.adjustOxyLoss(oxyloss_amt)
+	action_target.adjust_panel_oxygen_loss(oxyloss_amt)
+
+/// Keep this resistance scoped to panel mechanics, without changing general oxygen damage or healing.
+/mob/living/carbon/human/proc/adjust_panel_oxygen_loss(amount)
+	if(amount > 0 && HAS_TRAIT(src, TRAIT_RESILIENT_LOVER))
+		amount /= 3
+	return adjustOxyLoss(amount)
+
+/// Scale only panel brute damage, so its contribution to bodily pain is reduced once.
+/mob/living/carbon/human/proc/apply_panel_brute_damage(amount, zone)
+	if(amount > 0 && HAS_TRAIT(src, TRAIT_RESILIENT_LOVER))
+		amount /= 3
+	return apply_damage(amount, BRUTE, zone)
+
+/// Suppress panel pain text without changing combat messages or damage flashes.
+/mob/living/carbon/human/proc/show_panel_pain_message(message, visible = FALSE, respect_quirk = TRUE)
+	if(respect_quirk && HAS_TRAIT(src, TRAIT_RESILIENT_LOVER))
+		return
+	if(visible)
+		return visible_message(message)
+	return to_chat(src, message)
+
+/// Keep ordinary panel emotes; substitute only the quirk holder's critical pain sound.
+/mob/living/carbon/human/proc/panel_pain_emote(emote_name, forced = FALSE)
+	if(emote_name == "paincrit" && HAS_TRAIT(src, TRAIT_RESILIENT_LOVER))
+		return emote("resilientlovergroan", forced = forced)
+	return emote(emote_name, forced = forced)
+
+/// Inherit paincrit's successful-emote vice satisfaction, audience and eligibility unchanged.
+/// Its original audio-only presentation also avoids adding another chat message.
+/datum/emote/living/paincrit/resilientlover
+	key = "resilientlovergroan"
+	key_third_person = ""
+
+/datum/emote/living/paincrit/resilientlover/can_run_emote(mob/user, status_check = TRUE, intentional = FALSE)
+	if(intentional || !HAS_TRAIT(user, TRAIT_RESILIENT_LOVER))
+		return FALSE
+	return ..()
+
+/datum/emote/living/paincrit/resilientlover/get_sound(mob/user)
+	// Use the normal groan lookup, including the character's voice and muffling rules.
+	for(var/datum/emote/living/groan/groan_emote in GLOB.emote_list["groan"])
+		return groan_emote.get_sound(user)
 
 /// Used by tiny penises to halve target arousal gain while doubling the users
 /datum/sex_controller/proc/get_penis_size_arousal_multiplier(mob/living/carbon/human/action_target)
@@ -1041,14 +1087,21 @@
 	try_do_moan(arousal_amt, pain_amt, applied_force, giving)
 	try_do_pain_effect(pain_amt, giving, TRUE)
 
-/datum/sex_controller/proc/damage_from_pain(pain_amt)
+// Original signature retained; the passive restraint call opts out of panel resistance.
+// /datum/sex_controller/proc/damage_from_pain(pain_amt)
+/datum/sex_controller/proc/damage_from_pain(pain_amt, panel_action = TRUE)
 	if(pain_amt < PAIN_MINIMUM_FOR_DAMAGE)
 		return
 	var/damage = (pain_amt / PAIN_DAMAGE_DIVISOR)
 	var/obj/item/bodypart/part = user.get_bodypart(BODY_ZONE_CHEST)
 	if(!part)
 		return
-	user.apply_damage(damage, BRUTE, part)
+	// Original call retained for rollback; reduce panel damage once, including pain-derived damage.
+	// user.apply_damage(damage, BRUTE, part)
+	if(panel_action)
+		user.apply_panel_brute_damage(damage, part)
+	else
+		user.apply_damage(damage, BRUTE, part)
 
 /datum/sex_controller/proc/try_do_moan(arousal_amt, pain_amt, applied_force, giving)
 	if(suppress_moan)
@@ -1093,7 +1146,9 @@
 
 	return FALSE
 
-/datum/sex_controller/proc/try_do_pain_effect(pain_amt, giving, allow_intimate_item_reaction = FALSE)
+// Original signature retained; passive restraint complaints are not panel actions.
+// /datum/sex_controller/proc/try_do_pain_effect(pain_amt, giving, allow_intimate_item_reaction = FALSE)
+/datum/sex_controller/proc/try_do_pain_effect(pain_amt, giving, allow_intimate_item_reaction = FALSE, panel_action = TRUE)
 	if(pain_amt < PAIN_MILD_EFFECT)
 		return
 	if(last_pain + PAIN_COOLDOWN >= world.time)
@@ -1105,19 +1160,29 @@
 		return
 	if(pain_amt >= PAIN_HIGH_EFFECT)
 		var/pain_msg = pick(list("IT HURTS!!!", "IT NEEDS TO STOP!!!", "I CAN'T TAKE IT ANYMORE!!!"))
-		to_chat(user, span_boldwarning(pain_msg))
+		// Original call retained for rollback; suppress automatic pain text for this quirk.
+		// to_chat(user, span_boldwarning(pain_msg))
+		user.show_panel_pain_message(span_boldwarning(pain_msg), respect_quirk = panel_action)
 		user.fullscreen_redflash("redflash2")
 		if(prob(70) && user.stat == CONSCIOUS)
-			user.visible_message(span_warning("[user] shudders in pain!"))
+			// Original call retained for rollback; suppress automatic pain text for this quirk.
+			// user.visible_message(span_warning("[user] shudders in pain!"))
+			user.show_panel_pain_message(span_warning("[user] shudders in pain!"), visible = TRUE, respect_quirk = panel_action)
 	else if(pain_amt >= PAIN_MED_EFFECT)
 		var/pain_msg = pick(list("It hurts!", "It pains me!"))
-		to_chat(user, span_boldwarning(pain_msg))
+		// Original call retained for rollback; suppress automatic pain text for this quirk.
+		// to_chat(user, span_boldwarning(pain_msg))
+		user.show_panel_pain_message(span_boldwarning(pain_msg), respect_quirk = panel_action)
 		user.fullscreen_redflash("redflash1")
 		if(prob(40) && user.stat == CONSCIOUS)
-			user.visible_message(span_warning("[user] shudders in pain!"))
+			// Original call retained for rollback; suppress automatic pain text for this quirk.
+			// user.visible_message(span_warning("[user] shudders in pain!"))
+			user.show_panel_pain_message(span_warning("[user] shudders in pain!"), visible = TRUE, respect_quirk = panel_action)
 	else if(pain_amt >= PAIN_MILD_EFFECT)
 		var/pain_msg = pick(list("It hurts a little...", "It stings...", "I'm aching..."))
-		to_chat(user, span_warning(pain_msg))
+		// Original call retained for rollback; suppress automatic pain text for this quirk.
+		// to_chat(user, span_warning(pain_msg))
+		user.show_panel_pain_message(span_warning(pain_msg), respect_quirk = panel_action)
 
 /datum/sex_controller/proc/check_active_ejaculation()
 	if(arousal < ACTIVE_EJAC_THRESHOLD)
@@ -1147,8 +1212,12 @@
 			if(prob(8))
 				var/chaffepain = pick(10,10,10,10,20,20,30)
 				try_do_moan(3, chaffepain, 1, 0)
-				damage_from_pain(chaffepain)
-				try_do_pain_effect(chaffepain)
+				// Original call retained; passive restraint pain is outside panel-action protection.
+				// damage_from_pain(chaffepain)
+				damage_from_pain(chaffepain, panel_action = FALSE)
+				// Original call retained; passive restraint pain is outside panel-action protection.
+				// try_do_pain_effect(chaffepain)
+				try_do_pain_effect(chaffepain, panel_action = FALSE)
 				last_moan = 0
 				M.visible_message(("<span class='love_mid'>[M] squirms uncomfortably in [M.p_their()] restraints.</span>"), \
 					("<span class='love_extreme'>I feel [M.handcuffed] rub uncomfortably against my skin.</span>"))
@@ -1791,7 +1860,10 @@
 			target.confused += 25
 			target.OffBalance(30 SECONDS)
 		if(user?.client?.prefs?.extreme_erp && target?.client?.prefs?.extreme_erp)
-			if(!target.has_wound(/datum/wound/fracture/groin))
+			// Original fracture check retained for rollback.
+			// if(!target.has_wound(/datum/wound/fracture/groin))
+			// Protect only the fracture; the other effects of this action still apply.
+			if(!HAS_TRAIT(target, TRAIT_RESILIENT_LOVER) && !target.has_wound(/datum/wound/fracture/groin))
 				if(prob(10))
 					var/obj/item/bodypart/groin = target.get_bodypart(check_zone(BODY_ZONE_PRECISE_GROIN))
 					groin.add_wound(/datum/wound/fracture)
@@ -1799,7 +1871,9 @@
 /datum/sex_controller/proc/try_jaw_crush(mob/living/carbon/human/target)
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong) && force > SEX_FORCE_MID)
 		if(user?.client?.prefs?.extreme_erp && target?.client?.prefs?.extreme_erp)
-			if(!target.has_wound(/datum/wound/fracture/mouth))
+			// Original fracture check retained; only the panel jaw fracture is blocked by the quirk.
+			// if(!target.has_wound(/datum/wound/fracture/mouth))
+			if(!HAS_TRAIT(target, TRAIT_RESILIENT_LOVER) && !target.has_wound(/datum/wound/fracture/mouth))
 				if(prob(10))
 					var/obj/item/bodypart/mouth = target.get_bodypart(check_zone(BODY_ZONE_PRECISE_MOUTH))
 					mouth.add_wound(/datum/wound/fracture)

@@ -485,6 +485,16 @@
 	if(!message)
 		return FALSE
 
+	// Keep the original eligibility and visual feedback; suppress only the quirk holder's text.
+	if(HAS_TRAIT(source, TRAIT_RESILIENT_LOVER))
+		if(pain_amt >= PAIN_HIGH_EFFECT)
+			source.fullscreen_redflash("redflash3")
+		else if(pain_amt >= PAIN_MED_EFFECT)
+			source.fullscreen_redflash("redflash2")
+		else
+			source.fullscreen_redflash("redflash1")
+		return TRUE
+
 	// Three distinct display registers based on the wearer's relationship with the device:
 	// - Devout (span_notice): serene acceptance, mortification framing — visible messages show composed endurance.
 	// - Masochist (span_love): eager, involuntary pleasure — visible messages show desperate enjoyment.

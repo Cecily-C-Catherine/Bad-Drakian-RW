@@ -113,7 +113,9 @@
 			var/body_zone = bottom_knotted_part&SEX_PART_JAWS ? BODY_ZONE_HEAD : BODY_ZONE_CHEST
 			var/obj/item/bodypart/affecting = btm.get_bodypart(body_zone)
 			if(affecting && affecting.brute_dam < 150-damage) // cap damage applied
-				btm.apply_damage(damage, BRUTE, body_zone)
+				// Original call retained for rollback; include attachment damage in the quirk resistance.
+				// btm.apply_damage(damage, BRUTE, body_zone)
+				btm.apply_panel_brute_damage(damage, body_zone)
 			btm.sexcon.try_do_pain_effect(PAIN_HIGH_EFFECT, FALSE)
 		else
 			btm.sexcon.try_do_pain_effect(PAIN_MILD_EFFECT, FALSE)
@@ -157,7 +159,9 @@
 	penor.add_mob_blood(top)
 	playsound(get_turf(top), 'sound/combat/dismemberment/dismem (5).ogg', 80, TRUE)
 	playsound(get_turf(top), 'sound/vo/male/tomscream.ogg', 80, TRUE)
-	to_chat(top, span_userdanger("You feel a sharp pain as your [top.sexcon.get_knot_synonym()] is torn asunder!"))
+	// Original call retained for rollback; suppress the attachment pain notice for this quirk.
+	// to_chat(top, span_userdanger("You feel a sharp pain as your [top.sexcon.get_knot_synonym()] is torn asunder!"))
+	top.show_panel_pain_message(span_userdanger("You feel a sharp pain as your [top.sexcon.get_knot_synonym()] is torn asunder!"))
 	to_chat(btm, span_userdanger("You feel their [top.sexcon.get_knot_synonym()] withdraw faster than you can process!"))
 	knot_remove(forceful_removal = TRUE, notify = FALSE)
 	log_combat(btm, top, "Top had their cock ripped off (knot tugged too far)")
@@ -264,7 +268,9 @@
 		else if(prob(3))
 			btm.emote("painmoan")
 		else if(top.sexcon.knotted_part_partner&SEX_PART_JAWS && btm.getOxyLoss() < 50) // if the current top knotted them orally
-			btm.adjustOxyLoss(1)
+			// Original direct damage call retained for rollback; use panel resistance instead.
+			// btm.adjustOxyLoss(1)
+			btm.adjust_panel_oxygen_loss(1)
 
 /datum/sex_controller/proc/knot_movement_btm()
 	var/mob/living/carbon/human/top = knotted_owner
@@ -325,7 +331,9 @@
 			btm.sexcon.try_do_pain_effect(PAIN_MED_EFFECT, FALSE)
 			btm.Stun(15)
 			if(top.sexcon.knotted_part_partner&SEX_PART_JAWS && btm.getOxyLoss() < 50) // if the current top knotted them orally
-				btm.adjustOxyLoss(3)
+				// Original direct damage call retained for rollback; use panel resistance instead.
+				// btm.adjustOxyLoss(3)
+				btm.adjust_panel_oxygen_loss(3)
 		else if(prob(4))
 			btm.emote("painmoan")
 	addtimer(CALLBACK(src, PROC_REF(knot_movement_btm_after)), 0.1 SECONDS)
@@ -358,11 +366,15 @@
 				var/body_zone = top.sexcon.knotted_part_partner&SEX_PART_JAWS ? BODY_ZONE_HEAD : BODY_ZONE_CHEST
 				var/obj/item/bodypart/affecting = btm.get_bodypart(body_zone)
 				if(affecting && affecting.brute_dam < 150-damage) // cap damage applied
-					btm.apply_damage(damage, BRUTE, body_zone)
+					// Original call retained for rollback; include attachment damage in the quirk resistance.
+					// btm.apply_damage(damage, BRUTE, body_zone)
+					btm.apply_panel_brute_damage(damage, body_zone)
 			btm.Stun(80)
 			playsound(btm, 'sound/misc/mat/pop.ogg', 100, TRUE, -2, ignore_walls = FALSE)
 			playsound(top, 'sound/misc/mat/segso.ogg', 50, TRUE, -2, ignore_walls = FALSE)
-			btm.emote("paincrit", forced = TRUE)
+			// Original call retained for rollback; route critical pain through the quirk sound substitution; other emotes still run.
+			// btm.emote("paincrit", forced = TRUE)
+			btm.panel_pain_emote("paincrit", forced = TRUE)
 			if(notify)
 				var/knot_word_yank = top.sexcon.get_knot_synonym()
 				if(btm_removed)
