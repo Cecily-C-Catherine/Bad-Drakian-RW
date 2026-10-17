@@ -1,0 +1,5 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - qol: "Added private chat messages when tiredness advances to Tired, Fatigued or Exhausted."
+  - qol: "Slings can now be worn in the bracer slot or either back slot, and sling bullet pouches can be worn in either back slot."
