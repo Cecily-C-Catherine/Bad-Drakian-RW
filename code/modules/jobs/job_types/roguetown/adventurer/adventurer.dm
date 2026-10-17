@@ -73,7 +73,8 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/bluthund,
 		/datum/advclass/foreigner/underdweller,
 		/datum/advclass/foreigner/drow,
-		/datum/advclass/foreigner/slaver,
+		// Duplicate Zybantine Slaver entry; already included above.
+		// /datum/advclass/foreigner/slaver,
 		/datum/advclass/foreigner/shepherd,
 		/datum/advclass/foreigner/fencerguy,
 		/datum/advclass/foreigner/bronzeclad,
