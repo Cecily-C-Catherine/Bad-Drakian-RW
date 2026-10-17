@@ -524,7 +524,14 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 	color = "#ff7300"
 	taste_description = "burning coal"
 
+/datum/reagent/fire_resist/on_mob_metabolize(mob/living/M)
+	. = ..()
+	if(HAS_TRAIT(M, TRAIT_SILVER_WEAK))
+		to_chat(M, span_warning("My silver weakness prevents this potion from protecting me against fire."))
+
 /datum/reagent/fire_resist/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_SILVER_WEAK))
+		return ..()
 	M.apply_status_effect(/datum/status_effect/buff/alch/fire_resist)
 	return ..()
 
