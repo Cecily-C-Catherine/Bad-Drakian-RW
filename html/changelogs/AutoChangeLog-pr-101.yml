@@ -1,0 +1,4 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - bugfix: "Commoner now appears in Towner's class information and outfit preview choices in the character creator."
