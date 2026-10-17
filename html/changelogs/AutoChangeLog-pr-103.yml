@@ -1,6 +1,0 @@
-author: "mypingishuge"
-delete-after: True
-changes:
-  - balance: "Characters with Silver Weakness can no longer gain protection against fire from fire-resistance enchantments or potions, including against ordinary fire."
-  - bugfix: "Gaining Silver Weakness now disables fire resistance from already-equipped enchanted items."
-  - qol: "Added private messages explaining when Silver Weakness prevents an enchantment or potion from granting fire resistance."
