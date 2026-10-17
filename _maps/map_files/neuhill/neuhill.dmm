@@ -92487,6 +92487,10 @@
 "tnv" = (
 /turf/closed/wall/mineral/rogue/stone,
 /area/rogue/outdoors/bograt/sunken)
+"tny" = (
+/obj/structure/flora/roguegrass/reedbush,
+/turf/closed/mineral/rogue,
+/area/rogue/under/town/sewer)
 "tnz" = (
 /obj/structure/fluff/railing/wood{
 	dir = 8;
@@ -301503,9 +301507,9 @@ rRb
 gLf
 rSC
 rSC
-rSC
-rSC
-fIL
+lrs
+uEX
+tny
 udz
 rSC
 rSC
@@ -301935,9 +301939,9 @@ rRb
 gLf
 rSC
 rSC
-rSC
-rSC
-rSC
+lrs
+lrs
+lrs
 udz
 rRb
 fIL
@@ -411665,7 +411669,7 @@ fCu
 wbg
 bcC
 hdS
-eDi
+wMg
 kLW
 rUW
 szN
