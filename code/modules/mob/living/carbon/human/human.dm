@@ -229,6 +229,25 @@
 
 	dat += "<table>"
 
+	if(is_unclaimed_corpse())
+		var/has_fabric = FALSE
+		var/has_smelt = FALSE
+		for(var/obj/item/I in (get_equipped_items(TRUE) | held_items))
+			if((I.item_flags & ABSTRACT) || !I.canStrip(user, src))
+				continue
+			if(I.is_salvageable())
+				has_fabric = TRUE
+			if(I.is_smeltable())
+				has_smelt = TRUE
+			if(has_fabric && has_smelt)
+				break
+		dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_ALL]'><B>Loot Everything</B></A></td></tr>"
+		if(has_fabric)
+			dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_FABRIC]'>Loot Fabric</A></td></tr>"
+		if(has_smelt)
+			dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_SMELT]'>Loot Smeltable</A></td></tr>"
+		dat += "<tr><td><hr></td></tr>"
+
 	if(handcuffed)
 		dat += "<tr><td><A href='?src=[REF(src)];item=[SLOT_HANDCUFFED]'>Remove [handcuffed]</A></td></tr>"
 	if(legcuffed)
