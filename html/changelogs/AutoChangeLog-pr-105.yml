@@ -1,0 +1,6 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - balance: "ERP panel actions now consume half as much stamina."
+  - balance: "Athletics training from ERP panel actions no longer requires run intent, standing or being unbuckled."
+  - qol: "Hidden the repeated Athletics XP popups from ERP panel actions."
