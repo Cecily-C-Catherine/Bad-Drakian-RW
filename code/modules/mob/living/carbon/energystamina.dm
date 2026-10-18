@@ -54,17 +54,20 @@
 		energy_add(4) // Battle Ready now gives you a small amount of regeneration.
 		// This generally cover most reasonable in combat usage.
 
-/mob/proc/energy_add(added as num)
+// Replaced line: /mob/proc/energy_add(added as num)
+/mob/proc/energy_add(added as num, show_xp_popup = TRUE)
 	return
 
-/mob/living/energy_add(added as num)
+// Replaced line: /mob/living/energy_add(added as num)
+/mob/living/energy_add(added as num, show_xp_popup = TRUE)
 	if(HAS_TRAIT(src, TRAIT_INFINITE_STAMINA))
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_INFINITE_ENERGY))
 		return TRUE
 	if(m_intent == MOVE_INTENT_RUN && (mobility_flags & MOBILITY_STAND))
 		if(isnull(buckled))
-			mind && mind.add_sleep_experience(/datum/skill/misc/athletics, (STAINT*0.02))
+			// Replaced line: mind && mind.add_sleep_experience(/datum/skill/misc/athletics, (STAINT*0.02))
+			mind && mind.add_sleep_experience(/datum/skill/misc/athletics, (STAINT*0.02), show_xp_popup = show_xp_popup)
 	energy += added
 	if(energy > max_energy)
 		energy = max_energy
@@ -78,7 +81,8 @@
 		update_energy_hud()
 		return TRUE
 
-/mob/proc/stamina_add(added as num)
+// Replaced line: /mob/proc/stamina_add(added as num)
+/mob/proc/stamina_add(added as num, emote_override, force_emote = TRUE, show_xp_popup = TRUE)
 	return TRUE
 
 /mob/living/proc/stamina_nutrition_mod(amt)
@@ -112,7 +116,8 @@
 
 	return nutrition_amount
 
-/mob/living/stamina_add(added as num, emote_override, force_emote = TRUE) //call update_stamina here and set last_fatigued, return false when not enough fatigue left
+// Replaced line: /mob/living/stamina_add(added as num, emote_override, force_emote = TRUE)
+/mob/living/stamina_add(added as num, emote_override, force_emote = TRUE, show_xp_popup = TRUE) //call update_stamina here and set last_fatigued, return false when not enough fatigue left
 	if(HAS_TRAIT(src, TRAIT_INFINITE_STAMINA))
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_FORTITUDE) && added > 0) // 2nd check is to halve stamina SPEND, not stamina GAIN
@@ -123,7 +128,8 @@
 		added = round(added * 1.5, 1)
 	stamina = CLAMP(stamina+added, 0, max_stamina)
 	if(added > 0)
-		energy_add(added * -1)
+		// Replaced line: energy_add(added * -1)
+		energy_add(added * -1, show_xp_popup = show_xp_popup)
 		adjust_nutrition(-stamina_nutrition_mod(added))
 	if(added >= 5)
 		if(energy <= 0)

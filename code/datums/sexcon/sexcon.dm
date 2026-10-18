@@ -1563,7 +1563,15 @@
 	while(TRUE)
 		if(!target?.client?.prefs?.sexable) // no prefs/sexability means we should safely stop the loop
 			break
-		if(!user.stamina_add(action.stamina_cost * get_stamina_cost_multiplier()))
+		var/stamina_cost = action.stamina_cost * get_stamina_cost_multiplier()
+		var/athletics_xp = 0
+		// Supply normal Athletics XP when the shared stamina system won't award it.
+		if(stamina_cost > 0 && user.mind && !HAS_TRAIT(user, TRAIT_INFINITE_STAMINA) && !HAS_TRAIT(user, TRAIT_INFINITE_ENERGY))
+			if(!(user.m_intent == MOVE_INTENT_RUN && (user.mobility_flags & MOBILITY_STAND) && isnull(user.buckled)))
+				athletics_xp = user.STAINT * 0.02
+		// Bad Drakian adjustment: halve panel stamina costs; original calculation retained below.
+		// if(!user.stamina_add(action.stamina_cost * get_stamina_cost_multiplier()))
+		if(!user.stamina_add(stamina_cost * 0.5, show_xp_popup = FALSE))
 			break
 		if(!do_after(user, (action.do_time / get_speed_multiplier()), target = target, progress = show_progress))
 			break
@@ -1599,6 +1607,8 @@
 		base_knot_mode = current_knot_mode
 		suppress_action_messages = !show_action_message
 		find_ringing_collar()
+		if(athletics_xp > 0 && user.mind)
+			user.mind.add_sleep_experience(/datum/skill/misc/athletics, athletics_xp, show_xp_popup = FALSE)
 		action.on_perform(user, target)
 		do_visual_effects(target, action)
 		suppress_action_messages = FALSE
