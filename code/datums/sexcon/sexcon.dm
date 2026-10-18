@@ -1569,8 +1569,7 @@
 		if(stamina_cost > 0 && user.mind && !HAS_TRAIT(user, TRAIT_INFINITE_STAMINA) && !HAS_TRAIT(user, TRAIT_INFINITE_ENERGY))
 			if(!(user.m_intent == MOVE_INTENT_RUN && (user.mobility_flags & MOBILITY_STAND) && isnull(user.buckled)))
 				athletics_xp = user.STAINT * 0.02
-		// Bad Drakian adjustment: halve panel stamina costs; original calculation retained below.
-		// if(!user.stamina_add(action.stamina_cost * get_stamina_cost_multiplier()))
+		// Bad Drakian adjustment: halve panel stamina costs.
 		if(!user.stamina_add(stamina_cost * 0.5, show_xp_popup = FALSE))
 			break
 		if(!do_after(user, (action.do_time / get_speed_multiplier()), target = target, progress = show_progress))

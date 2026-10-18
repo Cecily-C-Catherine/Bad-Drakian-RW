@@ -124,7 +124,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 		needed_xp += needed_xp_for_level(next_skill_level)
 	return needed_xp
 
-// Replaced line: /datum/sleep_adv/proc/add_sleep_experience(skill, amt, silent = FALSE)
 /datum/sleep_adv/proc/add_sleep_experience(skill, amt, silent = FALSE, show_xp_popup = TRUE)
 	var/mob/living/L = mind.current
 	var/show_xp = TRUE
@@ -136,7 +135,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 		var/new_lvl = L.get_skill_level(skill)
 		var/capped_post_check = enough_sleep_xp_to_advance(skill, 2)
 		// Hide only numeric XP popups when requested; keep advancement notifications.
-		// Replaced line: if(COOLDOWN_FINISHED(src, xp_show))
 		if(show_xp_popup && COOLDOWN_FINISHED(src, xp_show))
 			if(org_lvl == new_lvl && !capped_post_check && show_xp)
 				L.balloon_alert(L, "[amt] XP")
@@ -203,7 +201,6 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 			L.playsound_local(L, pick(LEVEL_UP_SOUNDS), 100, TRUE)
 			COOLDOWN_START(src, level_up, XP_SHOW_COOLDOWN)
 		show_xp = FALSE
-	// Replaced line: if(COOLDOWN_FINISHED(src, xp_show))
 	if(show_xp_popup && COOLDOWN_FINISHED(src, xp_show))
 		if(amt && show_xp && (L.client?.prefs.floating_text_toggles & XP_TEXT))
 			L.balloon_alert(L, "[amt] XP")

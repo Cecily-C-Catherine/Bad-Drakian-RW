@@ -959,9 +959,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
 
-// Replaced line: /datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE)
 /datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE, show_xp_popup = TRUE)
-	// Replaced line: sleep_adv.add_sleep_experience(skill, amt, silent)
 	sleep_adv.add_sleep_experience(skill, amt, silent, show_xp_popup = show_xp_popup)
 
 /datum/mind/proc/add_personal_objective(datum/objective/O)
