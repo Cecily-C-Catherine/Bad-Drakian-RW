@@ -300,3 +300,9 @@
   _Rarity:
   - qol: Marshal subclasses now start with a royal sword scabbard on belt and keyring
       in satchel
+  - rscadd: Added Loot Everything/Fabric/Smeltable options to dead NPCs strip menus
+  mypingishuge:
+  - balance: ERP panel actions now consume half as much stamina.
+  - balance: Athletics training from ERP panel actions no longer requires run intent,
+      standing or being unbuckled.
+  - qol: Hidden the repeated Athletics XP popups from ERP panel actions.
