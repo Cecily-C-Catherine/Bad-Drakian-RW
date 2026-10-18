@@ -296,3 +296,7 @@
   - bugfix: Zybantine Slaver now appears only once in Adventurer's class information.
   - bugfix: Commoner now appears in Towner's class information and outfit preview
       choices in the character creator.
+2026-10-18:
+  _Rarity:
+  - qol: Marshal subclasses now start with a royal sword scabbard on belt and keyring
+      in satchel
