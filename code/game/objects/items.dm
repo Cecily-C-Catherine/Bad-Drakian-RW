@@ -1538,6 +1538,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	return ..()
 
+/obj/item/proc/is_smeltable()
+	return !!smeltresult
+
+/obj/item/proc/is_salvageable()
+	return sewrepair && salvage_result && (salvage_amount > 0)
+
+/obj/item/proc/matches_loot_filter(loot_filter)
+	switch(loot_filter)
+		if(LOOT_FILTER_ALL)
+			return TRUE
+		if(LOOT_FILTER_FABRIC)
+			return is_salvageable()
+		if(LOOT_FILTER_SMELT)
+			return is_smeltable()
+	return FALSE
+
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
 	if(HAS_TRAIT(loc, TRAIT_STUCKITEMS))
 		return FALSE

@@ -1891,6 +1891,83 @@
 		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
 		setMovetype(movement_type & ~FLOATING)
 
+// Auto-loot ported from Azure Peak #8556
+/mob/living/proc/is_unclaimed_corpse()
+	return (stat == DEAD) && !mind && !ckey
+
+/mob/living/carbon/is_unclaimed_corpse()
+	return ..() && !last_mind
+
+/mob/living/proc/can_loot_corpse(mob/living/target)
+	if(QDELETED(target) || !isliving(target) || !target.is_unclaimed_corpse())
+		return FALSE
+	if(HAS_TRAIT(target, TRAIT_STUCKITEMS))
+		return FALSE
+	if(!target.Adjacent(src) || !canUseTopic(target, BE_CLOSE, NO_DEXTERITY))
+		return FALSE
+	if(!has_active_hand() || !has_hand_for_held_index(active_hand_index) || check_arm_grabbed(active_hand_index))
+		return FALSE
+	if(istype(src, /mob/living/carbon/spirit))
+		return FALSE
+	return TRUE
+
+/mob/living/simple_animal/can_loot_corpse(mob/living/target)
+	return ..() && canUseTopic(target, BE_CLOSE)
+
+/mob/living/stripPanelUnequipAll(mob/who, loot_filter = LOOT_FILTER_ALL)
+	var/mob/living/target = who
+	if(!(loot_filter in list(LOOT_FILTER_ALL, LOOT_FILTER_FABRIC, LOOT_FILTER_SMELT)))
+		return
+	if(!can_loot_corpse(target))
+		return
+
+	var/list/carried = target.get_equipped_items(TRUE)
+	carried = (carried ? carried : list()) | target.held_items
+	var/list/loot = list()
+	for(var/obj/item/I in carried)
+		if((I.item_flags & ABSTRACT) || !I.matches_loot_filter(loot_filter) || !I.canStrip(src, target))
+			continue
+		loot += I
+
+	var/nothing_msg = "[target] has nothing left worth taking."
+	var/start_msg = "I start looting [target]..."
+	switch(loot_filter)
+		if(LOOT_FILTER_FABRIC)
+			nothing_msg = "[target] has nothing worth cutting up."
+			start_msg = "I start stripping [target] for cloth..."
+		if(LOOT_FILTER_SMELT)
+			nothing_msg = "[target] has nothing worth melting down."
+			start_msg = "I start stripping [target] for metal..."
+	if(!length(loot))
+		to_chat(src, span_warning(nothing_msg))
+		return
+
+	target.visible_message(span_warning("[src] starts looting [target]."), null, null, null, src)
+	to_chat(src, span_notice(start_msg))
+	var/taken = 0
+	for(var/obj/item/I in loot)
+		if(!can_loot_corpse(target))
+			break
+		if(QDELETED(I) || I.loc != target || (I.item_flags & ABSTRACT) || !I.matches_loot_filter(loot_filter) || !I.canStrip(src, target))
+			continue
+		I.add_fingerprint(src)
+		if(!do_after(src, I.strip_delay * STRIP_DELAY_MULT_UNCLAIMED_CORPSE, TRUE, target))
+			break
+		if(!can_loot_corpse(target))
+			break
+		if(QDELETED(I) || I.loc != target || (I.item_flags & ABSTRACT) || !I.matches_loot_filter(loot_filter) || !I.canStrip(src, target))
+			continue
+		if(I.doStrip(src, target))
+			taken++
+			log_combat(src, target, "stripped [I] off")
+
+	if(taken)
+		to_chat(src, span_notice("I take [taken] thing\s from [target]."))
+	if(!QDELETED(target) && Adjacent(target))
+		target.show_inv(src)
+	else
+		src << browse(null,"window=mob[REF(target)]")
+
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where)
