@@ -1,0 +1,4 @@
+author: "_Rarity"
+delete-after: True
+changes:
+  - rscadd: "Added Loot Everything/Fabric/Smeltable options to dead NPCs strip menus"
