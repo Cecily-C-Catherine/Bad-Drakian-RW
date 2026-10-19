@@ -1,0 +1,4 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - qol: "Players and admins can create custom BYOND macros, including emote shortcuts. Custom skins remain disabled."
