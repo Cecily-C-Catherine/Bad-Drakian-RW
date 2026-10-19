@@ -93,6 +93,7 @@
 	var/tugging_knot = FALSE
 	var/tugging_knot_check = 0
 	var/tugging_knot_blocked = FALSE
+	var/knot_movement_restoring = FALSE /// Suppresses movement callbacks while restoring a blocked large attachment
 	var/mob/living/carbon/knotted_owner = null // whom has the knot
 	var/mob/living/carbon/knotted_recipient = null // whom took the knot
 	/// Allow crotch to be exposed and bypass clothes check
