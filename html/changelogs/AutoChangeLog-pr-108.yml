@@ -1,0 +1,4 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - code_imp: "Ported 47 Ratwood updates to Bad Drakian."
