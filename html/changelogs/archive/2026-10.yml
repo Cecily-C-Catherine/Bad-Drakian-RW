@@ -433,6 +433,7 @@
   - balance: Holding your breath causes less oxygen damage than normal drowning.
   - bugfix: You can stop holding your breath even when above 50 oxygen damage.
   - qol: Enabled BYOND macros (mainly for emote shortcuts), on a 3 seconds cooldown.
+  - spellcheck: The Resilient Lover trait now uses a readable name in the quirk menu.
   ophaq:
   - rscadd: Adds the tailcoat and ornate tailcoat to the loadout.
   - bugfix: Fixes up code in the loadout for nobility check so there is less copy
