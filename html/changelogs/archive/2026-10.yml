@@ -432,6 +432,7 @@
   - code_imp: Ported 47 Ratwood updates to Bad Drakian.
   - balance: Holding your breath causes less oxygen damage than normal drowning.
   - bugfix: You can stop holding your breath even when above 50 oxygen damage.
+  - qol: Enabled BYOND macros (mainly for emote shortcuts), on a 3 seconds cooldown.
   ophaq:
   - rscadd: Adds the tailcoat and ornate tailcoat to the loadout.
   - bugfix: Fixes up code in the loadout for nobility check so there is less copy
