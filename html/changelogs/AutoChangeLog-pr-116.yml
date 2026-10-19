@@ -1,0 +1,4 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - spellcheck: "The Resilient Lover trait now uses a readable name in the quirk menu."
