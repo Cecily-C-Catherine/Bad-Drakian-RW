@@ -206,7 +206,7 @@
 	if(mover_sexcon.knotted_owner?.sexcon?.knot_movement_restoring)
 		return
 	if(mover_sexcon.knotted_status && mover_sexcon.get_knot_size() < DEFAULT_PENIS_SIZE)
-		mover_sexcon.knot_remove()
+		INVOKE_ASYNC(mover_sexcon, PROC_REF(knot_remove))
 		return
 	switch(mover_sexcon.knotted_status)
 		if(KNOTTED_AS_TOP)
