@@ -401,6 +401,8 @@
       chausses.
   Xander3359:
   - rscadd: Leashing now has actual visuals
+  - balance: You can no longer die from holding your breath, you can also hold your
+      breath for longer before passing out
   Yuckuza:
   - bugfix: fixed hammerhold, aavnr, zybantine, and gronnic merchant vessel shop items
       to be less misleading and sell what's advertised.
@@ -413,6 +415,12 @@
   - rscadd: The Prelate's staff now functions like the Duke's master rod.
   - rscadd: Added 1 templar slot and 2 churchling slots.
   - rscadd: Necra will now claim the vowed if they begin to die.
+  chemistrymain3 and mypingishuge:
+  - balance: Zizo's Bane applied in combat only slows movement, without inducing sleep
+      or causing energy loss or toxin damage. Outside combat, its original knockout
+      effect remains. The effect is chosen when it enters your body.
+  - bugfix: Eating Zizo's Bane no longer applies a second, unconditional knockout.
+      Its spores use the same combat-aware effect as the reagent.
   john-pawson:
   - bugfix: gives lich skeletons fatal insomnia, meaning they will no longer get tired
       or be able to sleep
@@ -422,6 +430,8 @@
   - balance: Rituos now only needs two* casts to be completed.
   mypingishuge:
   - code_imp: Ported 47 Ratwood updates to Bad Drakian.
+  - balance: Holding your breath causes less oxygen damage than normal drowning.
+  - bugfix: You can stop holding your breath even when above 50 oxygen damage.
   ophaq:
   - rscadd: Adds the tailcoat and ornate tailcoat to the loadout.
   - bugfix: Fixes up code in the loadout for nobility check so there is less copy
