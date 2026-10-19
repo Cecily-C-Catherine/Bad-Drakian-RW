@@ -1,0 +1,5 @@
+author: "chemistrymain3 and mypingishuge"
+delete-after: True
+changes:
+  - balance: "Zizo's Bane applied in combat only slows movement, without inducing sleep or causing energy loss or toxin damage. Outside combat, its original knockout effect remains. The effect is chosen when it enters your body."
+  - bugfix: "Eating Zizo's Bane no longer applies a second, unconditional knockout. Its spores use the same combat-aware effect as the reagent."

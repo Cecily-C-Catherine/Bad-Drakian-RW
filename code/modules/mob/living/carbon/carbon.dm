@@ -1160,6 +1160,7 @@
 					visible_message(span_danger("<b>[src] collapses, broken and bloodied!</b>"), \
 						span_userdanger("My bones are shattered... I cannot go on."))
 			stat = UNCONSCIOUS
+			cure_holdbreath() // In case you passed out from holding breathe
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src
 				H.dna?.species?.stop_wagging_tail(H)
