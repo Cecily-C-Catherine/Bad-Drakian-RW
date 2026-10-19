@@ -69,8 +69,8 @@
 		////////////
 		//SECURITY//
 		////////////
-	// comment out the line below when debugging locally to enable the options & messages menu
-	control_freak = 1
+	// Allow custom macros while retaining the other client restrictions, including custom skins.
+	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_MACROS
 
 		////////////////////////////////////
 		//things that require the database//
