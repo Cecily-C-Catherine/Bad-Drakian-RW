@@ -1,0 +1,5 @@
+author: "mypingishuge"
+delete-after: True
+changes:
+  - balance: "Holding your breath causes less oxygen damage than normal drowning."
+  - bugfix: "You can stop holding your breath even when above 50 oxygen damage."
