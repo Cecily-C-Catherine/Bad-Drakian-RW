@@ -1,0 +1,4 @@
+author: "_Rarity"
+delete-after: True
+changes:
+  - rscadd: "Added toggle for 3x character preview in Character Sheet."
