@@ -2313,7 +2313,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					popup.set_content(dat.Join())
 					popup.open(FALSE)
 				if("roleplay_ad")
-					to_chat(user, span_notice("Your roleplay ad is saved for this character and posted automatically when you spawn. In-game, open OOC > Roleplay Ad (View) to browse ads, or Roleplay Ad (Set) to edit or remove yours. Leave this field empty to disable automatic posting."))
+					to_chat(user, span_notice("Your roleplay ad is saved for this character and posted automatically when you spawn. In-game, open OOC > Roleplay Ad (View) to browse ads, or Roleplay Ad (Set) to edit or remove yours for the current round only. To change your saved ad for future rounds, use this character customization menu. Leave this field empty to disable automatic posting."))
 					var/ad_slot = default_slot
 					var/new_ad = tgui_input_text(user, "Describe the roleplay you are looking for. Leave empty to remove your saved ad.", "Roleplay Ad", roleplay_ad, max_length = MAX_MESSAGE_LEN, multiline = TRUE, encode = FALSE, bigmodal = TRUE)
 					if(isnull(new_ad))
