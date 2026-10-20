@@ -1,5 +1,0 @@
-author: "_Rarity"
-delete-after: True
-changes:
-  - qol: "Knots staying tied during movement now depends on size. Tiny and Small release immediately, Average keeps existing checks, and Large remains tied."
-  - balance: "Either participant can manually release a Large knot."
