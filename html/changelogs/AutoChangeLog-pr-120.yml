@@ -1,4 +1,0 @@
-author: "GarrusVakarian"
-delete-after: True
-changes:
-  - bugfix: "fixed a major, two year old issue that allowed people to teleport items."

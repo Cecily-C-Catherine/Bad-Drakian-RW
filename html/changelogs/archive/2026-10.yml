@@ -486,6 +486,8 @@
 
       fetch cd went from 3 to 15 after the fix.'
 2026-10-20:
+  GarrusVakarian:
+  - bugfix: fixed a major, two year old issue that allowed people to teleport items.
   _Rarity:
   - qol: Knots staying tied during movement now depends on size. Tiny and Small release
       immediately, Average keeps existing checks, and Large remains tied.
